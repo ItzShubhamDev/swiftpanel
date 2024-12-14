@@ -1,0 +1,65 @@
+@layout.admin()
+
+@slot('title')
+{{ node.name }}: Servers
+@endslot
+
+@slot('header')
+<h1>{{ node.name }}<small>All servers currently assigned to this node.</small></h1>
+<ol class="breadcrumb">
+  <li><a href="{{ route('admin.index') }}">Admin</a></li>
+  <li><a href="{{ route('admin.nodes.index') }}">Nodes</a></li>
+  <li><a href="{{ route('admin.nodes.show', [node.id]) }}">{{ node.name }}</a></li>
+  <li class="active">Servers</li>
+</ol>
+@endslot
+
+@slot('content')
+<div class="row">
+  <div class="col-xs-12">
+    <div class="nav-tabs-custom nav-tabs-floating">
+      <ul class="nav nav-tabs">
+        <li><a href="{{ route('admin.nodes.index', [node.id]) }}">About</a></li>
+        <li><a href="{{ route('admin.nodes.settings', [node.id]) }}">Settings</a></li>
+        <li><a href="{{ route('admin.nodes.configuration', [node.id]) }}">Configuration</a></li>
+        <li><a href="{{ route('admin.nodes.allocation', [node.id]) }}">Allocation</a></li>
+        <li class="active"><a href="{{ route('admin.nodes.servers', [node.id]) }}">Servers</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Process Manager</h3>
+      </div>
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tr>
+            <th>ID</th>
+            <th>Server Name</th>
+            <th>Owner</th>
+            <th>Service</th>
+          </tr>
+          @each(server in node.servers)
+          <tr data-server="{{ server.uuid }}">
+            <td><code>{{ server.uuidShort }}</code></td>
+            <td><a href="{{ route('admin.servers.index', [server.id]) }}">{{ server.name }}</a></td>
+            <td><a href="{{ route('admin.users.index', [server.ownerId]) }}">{{ server.owner.username }}</a></td>
+            <td>{{ server.nest.name }} ({{ server.egg.name }})</td>
+          </tr>
+          @endeach
+        </table>
+        {{-- @if($servers->hasPages())
+        <div class="box-footer with-border">
+          <div class="col-md-12 text-center">{!! $servers->render() !!}</div>
+        </div>
+        @endif --}}
+      </div>
+    </div>
+  </div>
+</div>
+@endslot
+
+@end

@@ -29,7 +29,11 @@
     "#database/*": "./database/*.js",
     "#tests/*": "./tests/*.js",
     "#start/*": "./start/*.js",
-    "#config/*": "./config/*.js"
+    "#config/*": "./config/*.js",
+    "#utils/*": "./app/utils/*.js",
+    "#transformers/*": "./app/transformers/*.js",
+    "#types/*": "./types/*.js",
+    "#langs/*": "./resources/lang/*.js"
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.8.2",
@@ -40,6 +44,7 @@
     "@japa/plugin-adonisjs": "^3.0.1",
     "@japa/runner": "^3.1.4",
     "@swc/core": "1.7.26",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/luxon": "^3.4.2",
     "@types/node": "^22.7.5",
     "@types/react": "^18.3.12",
@@ -67,14 +72,18 @@
     "@adonisjs/static": "^1.1.1",
     "@adonisjs/vite": "^3.0.0",
     "@inertiajs/react": "^1.2.0",
+    "@itzshubhamdev/laravel_js_validator": "^1.0.2",
+    "@izzyjs/route": "^1.2.0",
     "@vinejs/vine": "^2.1.0",
     "edge.js": "^6.2.0",
+    "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.462.0",
     "luxon": "^3.5.0",
     "mysql2": "^3.11.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "yaml": "^2.6.1"
   },
   "hotHook": {
     "boundaries": [

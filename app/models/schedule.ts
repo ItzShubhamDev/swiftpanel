@@ -23,16 +23,22 @@ export default class Schedule extends BaseModel {
   @column()
   declare cronMonth: string
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare isActive: boolean
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare isProcessing: boolean
 
   @column()
   declare name: string
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare onlyWhenOnline: boolean
 
   @column()

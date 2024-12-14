@@ -7,7 +7,9 @@ export default class ServerTransfer extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare archived: boolean
 
   @column()
@@ -31,7 +33,9 @@ export default class ServerTransfer extends BaseModel {
   @column()
   declare serverId: number
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare successful: boolean | null
 
   @column.dateTime({ autoCreate: true })

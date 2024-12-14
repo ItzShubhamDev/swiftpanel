@@ -1,7 +1,10 @@
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
+import Server from './server.js'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import DatabasesHost from './databases_host.js'
 
-export default class DatabaseHost extends BaseModel {
+export default class Database extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
@@ -31,4 +34,10 @@ export default class DatabaseHost extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+
+  @belongsTo(() => Server)
+  declare server: BelongsTo<typeof Server>
+
+  @belongsTo(() => DatabasesHost)
+  declare host: BelongsTo<typeof DatabasesHost>
 }

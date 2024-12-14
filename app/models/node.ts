@@ -1,9 +1,13 @@
-import { BaseModel, column, hasMany, belongsTo } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany, belongsTo, beforeCreate } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 import DatabasesHost from './databases_host.js'
 import type { HasMany, BelongsTo } from '@adonisjs/lucid/types/relations'
 import Location from './location.js'
 import Server from './server.js'
+import { randomUUID } from 'node:crypto'
+import { randomString } from '../utils/index.js'
+import { encrypt } from '../utils/index.js'
+import Allocation from './allocation.js'
 
 export default class Node extends BaseModel {
   @column({ isPrimary: true })
@@ -12,7 +16,9 @@ export default class Node extends BaseModel {
   @column()
   declare uuid: string
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare behindProxy: boolean
 
   @column()
@@ -45,7 +51,9 @@ export default class Node extends BaseModel {
   @column()
   declare locationId: number
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare maintenanceMode: boolean
 
   @column()
@@ -57,7 +65,9 @@ export default class Node extends BaseModel {
   @column()
   declare name: string
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare public: boolean
 
   @column()
@@ -72,6 +82,21 @@ export default class Node extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 
+  @beforeCreate()
+  static assignUuid(node: Node) {
+    node.uuid = randomUUID()
+  }
+
+  @beforeCreate()
+  static assignDaemonTokenId(node: Node) {
+    node.daemonTokenId = randomString(16)
+  }
+
+  @beforeCreate()
+  static assignDaemonToken(node: Node) {
+    node.daemonToken = encrypt(randomString(64))
+  }
+
   @hasMany(() => DatabasesHost)
   declare databasesHosts: HasMany<typeof DatabasesHost>
 
@@ -80,4 +105,7 @@ export default class Node extends BaseModel {
 
   @hasMany(() => Server)
   declare servers: HasMany<typeof Server>
+
+  @hasMany(() => Allocation)
+  declare allocations: HasMany<typeof Allocation>
 }

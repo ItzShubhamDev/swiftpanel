@@ -45,13 +45,17 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare rememberToken: string | null
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare rootAdmin: boolean
 
   @column()
   declare totpSecret: string | null
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare useTotp: boolean
 
   @column()

@@ -10,10 +10,14 @@ export default class Task extends BaseModel {
   @column()
   declare action: string
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare continueOnFailure: boolean
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare isQueued: boolean
 
   @column()

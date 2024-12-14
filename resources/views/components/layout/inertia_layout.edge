@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title inertia>SwiftPanel</title>
+
+  @viteReactRefresh()
+  @inertiaHead()
+  @vite(['resources/scripts/app/app.tsx', `resources/scripts/pages/${page.component}.tsx`])
+  @routes()
+</head>
+
+<body class="min-h-screen w-screen font-ubuntu">
+  @inertia()
+</body>
+
+</html>

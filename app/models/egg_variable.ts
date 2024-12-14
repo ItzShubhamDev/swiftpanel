@@ -26,10 +26,14 @@ export default class EggVariable extends BaseModel {
   @column()
   declare rules: string | null
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare userEditable: boolean
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare userViewable: boolean
 
   @column.dateTime({ autoCreate: true })

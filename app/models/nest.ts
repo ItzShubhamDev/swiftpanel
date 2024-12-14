@@ -1,8 +1,9 @@
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, beforeCreate, column, hasMany } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 import Egg from './egg.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
 import Server from './server.js'
+import { randomUUID } from 'node:crypto'
 
 export default class Nest extends BaseModel {
   @column({ isPrimary: true })
@@ -25,6 +26,11 @@ export default class Nest extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+
+  @beforeCreate()
+  static assignUuid(nest: Nest) {
+    nest.uuid = randomUUID()
+  }
 
   @hasMany(() => Egg)
   declare eggs: HasMany<typeof Egg>

@@ -1,9 +1,10 @@
-import { BaseModel, column, hasMany, belongsTo } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany, belongsTo, beforeCreate } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 import EggVariable from './egg_variable.js'
 import type { HasMany, BelongsTo } from '@adonisjs/lucid/types/relations'
 import Nest from './nest.js'
 import Server from './server.js'
+import { randomUUID } from 'node:crypto'
 
 export default class Egg extends BaseModel {
   @column({ isPrimary: true })
@@ -45,7 +46,9 @@ export default class Egg extends BaseModel {
   @column()
   declare fileDenylist: string | null
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare forceOutgoingIp: boolean
 
   @column()
@@ -63,7 +66,9 @@ export default class Egg extends BaseModel {
   @column()
   declare scriptInstall: string | null
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare scriptIsPrivileged: boolean
 
   @column()
@@ -71,6 +76,11 @@ export default class Egg extends BaseModel {
 
   @column()
   declare updateUrl: string | null
+
+  @beforeCreate()
+  static assignUuid(egg: Egg) {
+    egg.uuid = randomUUID()
+  }
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime | null
@@ -86,4 +96,7 @@ export default class Egg extends BaseModel {
 
   @hasMany(() => Server)
   declare servers: HasMany<typeof Server>
+
+  @belongsTo(() => Egg, { foreignKey: 'copyScriptFrom' })
+  declare copyFrom: BelongsTo<typeof Egg>
 }

@@ -1,4 +1,4 @@
-import { BaseModel, column, hasMany, belongsTo } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany, belongsTo, beforeCreate } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 import Allocation from './allocation.js'
 import type { HasMany, BelongsTo } from '@adonisjs/lucid/types/relations'
@@ -10,8 +10,10 @@ import ServerVariable from './server_variable.js'
 import Egg from './egg.js'
 import Nest from './nest.js'
 import Node from './node.js'
-import User from './users.js'
+import User from './user.js'
 import Subuser from './subuser.js'
+import { randomUUID } from 'node:crypto'
+import Database from './database.js'
 
 export default class Server extends BaseModel {
   @column({ isPrimary: true })
@@ -62,13 +64,17 @@ export default class Server extends BaseModel {
   @column()
   declare nodeId: number
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare oomDisabled: boolean
 
   @column()
   declare ownerId: number
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare skipScripts: boolean
 
   @column()
@@ -98,6 +104,13 @@ export default class Server extends BaseModel {
   @column.dateTime()
   declare installedAt: DateTime | null
 
+  @beforeCreate()
+  static assignDaemonToken(server: Server) {
+    const uuid = randomUUID()
+    server.uuid = uuid
+    server.uuidShort = uuid.substring(0, 8)
+  }
+
   @hasMany(() => Allocation)
   declare allocations: HasMany<typeof Allocation>
 
@@ -107,6 +120,9 @@ export default class Server extends BaseModel {
   @hasMany(() => Backup)
   declare backups: HasMany<typeof Backup>
 
+  @hasMany(() => Database)
+  declare databases: HasMany<typeof Database>
+
   @hasMany(() => Schedule)
   declare schedules: HasMany<typeof Schedule>
 
@@ -115,6 +131,9 @@ export default class Server extends BaseModel {
 
   @hasMany(() => ServerVariable)
   declare serverVariables: HasMany<typeof ServerVariable>
+
+  @hasMany(() => Subuser)
+  declare subusers: HasMany<typeof Subuser>
 
   @belongsTo(() => Egg)
   declare egg: BelongsTo<typeof Egg>
@@ -127,7 +146,4 @@ export default class Server extends BaseModel {
 
   @belongsTo(() => User, { foreignKey: 'ownerId' })
   declare owner: BelongsTo<typeof User>
-
-  @hasMany(() => Subuser)
-  declare subusers: HasMany<typeof Subuser>
 }

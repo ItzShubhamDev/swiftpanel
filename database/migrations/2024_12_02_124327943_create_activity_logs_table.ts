@@ -14,9 +14,12 @@ export default class extends BaseSchema {
       table.integer('actor_id').unsigned()
       table.integer('api_key_id').unsigned()
       table.text('properties', 'longtext').notNullable()
+      table.string('subject_type').notNullable()
+      table.integer('subject_id').unsigned().notNullable()
       table.timestamp('timestamp').notNullable().defaultTo(this.now())
 
       table.index(['actor_type', 'actor_id'])
+      table.index(['subject_type', 'subject_id'])
     })
   }
 

@@ -2,6 +2,7 @@ import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 import Server from './server.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import Node from './node.js'
 
 export default class Allocation extends BaseModel {
   @column({ isPrimary: true })
@@ -33,4 +34,7 @@ export default class Allocation extends BaseModel {
 
   @belongsTo(() => Server)
   declare server: BelongsTo<typeof Server>
+
+  @belongsTo(() => Node)
+  declare node: BelongsTo<typeof Node>
 }

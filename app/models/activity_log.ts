@@ -1,14 +1,12 @@
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
-import ActivityLogsSubject from './activity_logs_subject.js'
-import type { HasMany } from '@adonisjs/lucid/types/relations'
 
 export default class ActivityLog extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
   @column()
-  declare actorId: string | null
+  declare actorId: number | null
 
   @column()
   declare actorType: string | null
@@ -31,9 +29,12 @@ export default class ActivityLog extends BaseModel {
   @column()
   declare properties: string
 
+  @column()
+  declare subjectId: number
+
+  @column()
+  declare subjectType: string
+
   @column.dateTime({ autoCreate: true })
   declare timestamp: DateTime
-
-  @hasMany(() => ActivityLogsSubject)
-  declare activityLogsSubjects: HasMany<typeof ActivityLogsSubject>
 }

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{ config['app:name'] }} - {{{ await $slots.title() }}}</title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/favicons/manifest.json">
+  <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#bc6e3c">
+  <link rel="shortcut icon" href="/favicons/favicon.ico">
+  <meta name="msapplication-config" content="/favicons/browserconfig.xml">
+  <meta name="theme-color" content="#0e4688">
+  <link rel="stylesheet" href="/themes/pterodactyl/vendor/select2/select2.min.css">
+  <link rel="stylesheet" href="/themes/pterodactyl/vendor/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/themes/pterodactyl/vendor/adminlte/admin.min.css">
+  <link rel="stylesheet" href="/themes/pterodactyl/vendor/adminlte/colors/skin-blue.min.css">
+  <link rel="stylesheet" href="/themes/pterodactyl/vendor/sweetalert/sweetalert.min.css">
+  <link rel="stylesheet" href="/themes/pterodactyl/vendor/animate/animate.min.css">
+  <link rel="stylesheet" href="/themes/pterodactyl/css/pterodactyl.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  @if ($slots.headerScripts)
+  {{{ await $slots.headerScripts() }}}
+  @endif
+</head>
+
+<body class="hold-transition skin-blue fixed sidebar-mini">
+  <div class="wrapper">
+    <header class="main-header">
+      <a href="{{ route('index') }}" class="logo">
+        <span>{{ config['app:name'] }}</span>
+      </a>
+      <nav class="navbar navbar-static-top">
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <li class="user-menu">
+              <a href="{{ route('account.index') }}">
+                <img src="https://www.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=160" class="user-image"
+                  alt="User Image">
+                <span class="hidden-xs">{{ auth.user.nameFirst }} {{ auth.user.nameLast }}</span>
+              </a>
+            </li>
+            <li>
+            <li><a href="{{ route('index') }}" data-toggle="tooltip" data-placement="bottom"
+                title="Exit Admin Control"><i class="fa fa-server"></i></a></li>
+            </li>
+            <li>
+            <li><a href="{{ route('auth.logout') }}" id="logoutButton" data-toggle="tooltip" data-placement="bottom"
+                title="Logout"><i class="fa fa-sign-out"></i></a></li>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <aside class="main-sidebar">
+      <section class="sidebar">
+        <ul class="sidebar-menu">
+          <li class="header">BASIC ADMINISTRATION</li>
+          <li class="{{ request.url() === '/admin' ? 'active' : '' }}">
+            <a href="{{ route('admin.index') }}">
+              <i class="fa fa-home"></i> <span>Overview</span>
+            </a>
+          </li>
+          <li class="{{ request.url().startsWith('/admin/settings') ? 'active' : '' }}">
+            <a href="{{ route('admin.settings.index')}}">
+              <i class="fa fa-wrench"></i> <span>Settings</span>
+            </a>
+          </li>
+          <li class="{{ request.url().startsWith('/admin/api') ? 'active' : '' }}">
+            <a href="{{ route('admin.api.index')}}">
+              <i class="fa fa-gamepad"></i> <span>Application API</span>
+            </a>
+          </li>
+          <li class="header">MANAGEMENT</li>
+          <li class="{{ request.url().startsWith('/admin/databases') ? 'active' : '' }}">
+            <a href="{{ route('admin.databases.index') }}">
+              <i class="fa fa-database"></i> <span>Databases</span>
+            </a>
+          </li>
+          <li class="{{ request.url().startsWith('/admin/locations') ? 'active' : '' }}">
+            <a href="{{ route('admin.locations.index') }}">
+              <i class="fa fa-globe"></i> <span>Locations</span>
+            </a>
+          </li>
+          <li class="{{ request.url().startsWith('/admin/nodes') ? 'active' : '' }}">
+            <a href="{{ route('admin.nodes.index') }}">
+              <i class="fa fa-sitemap"></i> <span>Nodes</span>
+            </a>
+          </li>
+          <li class="{{ request.url().startsWith('/admin/servers') ? 'active' : '' }}">
+            <a href="{{ route('admin.servers.index') }}">
+              <i class="fa fa-server"></i> <span>Servers</span>
+            </a>
+          </li>
+          <li class="{{ request.url().startsWith('/admin/users') ? 'active' : '' }}">
+            <a href="{{ route('admin.users.index') }}">
+              <i class="fa fa-users"></i> <span>Users</span>
+            </a>
+          </li>
+          <li class="header">SERVICE MANAGEMENT</li>
+          <li class="{{ request.url().startsWith('/admin/nests') ? 'active' : '' }}">
+            <a href="{{ route('admin.nests.index') }}">
+              <i class="fa fa-th-large"></i> <span>Nests</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </aside>
+    <div class="content-wrapper">
+      <section class="content-header">
+        @if ($slots.header)
+        {{{ await $slots.header() }}}
+        @endif
+      </section>
+      <section class="content">
+        <div class="row">
+          <div class="col-xs-12">
+            @if(flashMessages.has('inputErrorsBag'))
+            <div class="alert alert-danger">
+              There was an error validating the data provided.<br><br>
+              <ul>
+                @each(error in flashMessages.get('inputErrorsBag'))
+                <li>{{ error }}</li>
+                @endeach
+              </ul>
+            </div>
+            @endif
+            @flashMessage('error')
+            <div class="alert alert-danger">
+              There was an error validating the data provided.<br><br>
+              <ul>
+                @each(error in $message.errors)
+                <li>{{ error }}</li>
+                @endeach
+              </ul>
+            </div>
+            @endflashMessage
+            @flashMessage('alert')
+            <div class="alert alert-{{ $message.type }} alert-dismissable" role="alert">
+              {{ $message.message }}
+            </div>
+            @endflashMessage
+          </div>
+        </div>
+        {{{ await $slots.content() }}}
+      </section>
+    </div>
+    <footer class="main-footer">
+      <div class="pull-right small text-gray" style="margin-right:10px;margin-top:-7px;">
+        {{-- <strong><i class="fa fa-fw {{ $appIsGit ? 'fa-git-square' : 'fa-code-fork' }}"></i></strong> --}}
+        {{ appVersion }}<br />
+        {{-- <strong><i class="fa fa-fw fa-clock-o"></i></strong> {{ round(microtime(true) - LARAVEL_START, 3) }}s --}}
+      </div>
+      Copyright &copy; 2015 -
+      {{ new Date().getFullYear() }}
+      <a href="https://swiftpanel.github.io/">SwiftPanel</a>.
+    </footer>
+  </div>
+  <script src="/js/keyboard.polyfill.js" type="application/javascript"></script>
+  <script>
+    keyboardeventKeyPolyfill.polyfill();
+  </script>
+
+  <script src="/themes/pterodactyl/vendor/jquery/jquery.min.js?t={cache-version}"></script>
+  <script src="/themes/pterodactyl/vendor/sweetalert/sweetalert.min.js?t={cache-version}"></script>
+  <script src="/themes/pterodactyl/vendor/bootstrap/bootstrap.min.js?t={cache-version}"></script>
+  <script src="/themes/pterodactyl/vendor/slimscroll/jquery.slimscroll.min.js?t={cache-version}"></script>
+  <script src="/themes/pterodactyl/vendor/adminlte/app.min.js?t={cache-version}"></script>
+  <script src="/themes/pterodactyl/vendor/bootstrap-notify/bootstrap-notify.min.js?t={cache-version}"></script>
+  <script src="/themes/pterodactyl/vendor/select2/select2.full.min.js?t={cache-version}"></script>
+  <script src="/themes/pterodactyl/js/admin/functions.js?t={cache-version}"></script>
+  <script src="/js/autocomplete.js" type="application/javascript"></script>
+
+  @if(auth.isAuthenticated)
+  <script>
+    $('#logoutButton').on('click', function (event) {
+                        event.preventDefault();
+
+                        var that = this;
+                        swal({
+                            title: 'Do you want to log out?',
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d9534f',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Log out'
+                        }, function () {
+                             $.ajax({
+                                type: 'POST',
+                                url: '{{ route('auth.logout') }}',
+                                headers: {
+                                    'x-csrf-token': '{{ request.csrfToken }}'
+                                },complete: function () {
+                                  window.location.href = '{{route('auth.login.index')}}';
+                                }
+                        });
+                      });
+                    });
+  </script>
+  @end
+
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    })
+  </script>
+
+  @if ($slots.scripts)
+  {{{ await $slots.scripts() }}}
+  @endif
+</body>

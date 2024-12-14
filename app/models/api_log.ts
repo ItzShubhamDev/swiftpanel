@@ -5,7 +5,9 @@ export default class ApiLog extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare authorized: boolean
 
   @column()

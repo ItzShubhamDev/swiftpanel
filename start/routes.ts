@@ -7,6 +7,9 @@
 |
 */
 
-import router from '@adonisjs/core/services/router'
-router.on('/').renderInertia('home')
-
+import './routes/admin.js'
+import './routes/api_application.js'
+import './routes/api_client.js'
+import './routes/api_remote.js'
+import './routes/auth.js'
+import './routes/base.js'

@@ -1,7 +1,8 @@
-import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
+import { BaseModel, column, belongsTo, hasMany } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 import Node from './node.js'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
+import Database from './database.js'
 
 export default class DatabasesHost extends BaseModel {
   @column({ isPrimary: true })
@@ -36,4 +37,7 @@ export default class DatabasesHost extends BaseModel {
 
   @belongsTo(() => Node)
   declare node: BelongsTo<typeof Node>
+
+  @hasMany(() => Database)
+  declare databases: HasMany<typeof Database>
 }

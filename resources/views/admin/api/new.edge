@@ -1,0 +1,68 @@
+@layout.admin()
+
+@slot('title')
+Application API
+@endslot
+
+@slot('content-header')
+<h1>Application API<small>Create a new application API key.</small></h1>
+<ol class="breadcrumb">
+  <li><a href="{{ route('admin.index') }}">Admin</a></li>
+  <li><a href="{{ route('admin.api.index') }}">Application API</a></li>
+  <li class="active">New Credentials</li>
+</ol>
+@endslot
+
+@slot('content')
+<div class="row">
+  <form method="POST" action="{{ route('admin.api.new.store') }}">
+    <div class="col-sm-8 col-xs-12">
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">Select Permissions</h3>
+        </div>
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            @each(resource in resources)
+            <tr>
+              <td class="col-sm-3 strong">{{ titleCase(resource).replace('_', ' ') }}</td>
+              <td class="col-sm-3 radio radio-primary text-center">
+                <input type="radio" id="r_{{ resource }}" name="{{ resource }}" value="{{ resource }}:read">
+                <label for="r_{{ resource }}">Read</label>
+              </td>
+              <td class="col-sm-3 radio radio-primary text-center">
+                <input type="radio" id="rw_{{ resource }}" name="{{ resource }}" value="{{ resource }}:write">
+                <label for="rw_{{ resource }}">Read &amp; Write</label>
+              </td>
+              <td class="col-sm-3 radio text-center">
+                <input type="radio" id="n_{{ resource }}" name="{{ resource }}" value="{{ resource }}:none" checked>
+                <label for="n_{{ resource }}">None</label>
+              </td>
+            </tr>
+            @endeach
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 col-xs-12">
+      <div class="box box-primary">
+        <div class="box-body">
+          <div class="form-group">
+            <label class="control-label" for="memoField">Description <span class="field-required"></span></label>
+            <input id="memoField" type="text" name="description" class="form-control">
+          </div>
+          <p class="text-muted">Once you have assigned permissions and created this set of credentials you will be
+            unable to come back and edit it. If you need to make changes down the road you will need to create a new set
+            of credentials.</p>
+        </div>
+        <div class="box-footer">
+          {{ csrfField() }}
+          <button type="submit" class="btn btn-success btn-sm pull-right">Create Credentials</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+@endslot
+
+@end

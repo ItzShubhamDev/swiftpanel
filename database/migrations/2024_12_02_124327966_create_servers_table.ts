@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('external_id').unique()
       table.uuid('uuid').notNullable().unique()
-      table.string('uuidShort', 8).notNullable().unique()
+      table.string('uuid_short', 8).notNullable().unique()
       table.integer('node_id').unsigned().notNullable().references('nodes.id')
       table.string('name').notNullable()
       table.text('description').notNullable()

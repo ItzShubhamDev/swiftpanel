@@ -1,7 +1,8 @@
-import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
+import { BaseModel, column, belongsTo, beforeCreate } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 import Server from './server.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import { randomUUID } from 'node:crypto'
 
 export default class Backup extends BaseModel {
   @column({ isPrimary: true })
@@ -19,10 +20,14 @@ export default class Backup extends BaseModel {
   @column()
   declare ignoredFiles: string
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare isLocked: boolean
 
-  @column()
+  @column({
+    consume: (value: number) => !!value,
+  })
   declare isSuccessful: boolean
 
   @column()
@@ -48,6 +53,11 @@ export default class Backup extends BaseModel {
 
   @column.dateTime()
   declare deletedAt: DateTime | null
+
+  @beforeCreate()
+  static assignUuid(backup: Backup) {
+    backup.uuid = randomUUID()
+  }
 
   @belongsTo(() => Server)
   declare server: BelongsTo<typeof Server>

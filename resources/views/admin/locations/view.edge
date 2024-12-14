@@ -1,0 +1,71 @@
+@layout.admin()
+
+@slot('title')
+Locations &rarr; View &rarr; {{ location.short }}
+@endslot
+
+@slot('header')
+<h1>{{ location.short }}<small>{{ truncate(location.long, 75) }}</small></h1>
+<ol class="breadcrumb">
+  <li><a href="{{ route('admin.index') }}">Admin</a></li>
+  <li><a href="{{ route('admin.locations.index') }}">Locations</a></li>
+  <li class="active">{{ location.short }}</li>
+</ol>
+@endslot
+
+@slot('content')
+<div class="row">
+  <div class="col-sm-6">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Location Details</h3>
+      </div>
+      <form action="{{ route('admin.locations.update', [location.id]) }}" method="POST">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="pShort" class="form-label">Short Code</label>
+            <input type="text" id="pShort" name="short" class="form-control" value="{{ location.short }}" />
+          </div>
+          <div class="form-group">
+            <label for="pLong" class="form-label">Description</label>
+            <textarea id="pLong" name="long" class="form-control" rows="4">{{ location.long ?? '' }}</textarea>
+          </div>
+        </div>
+        <div class="box-footer">
+          {{ csrfField() }}
+          <button name="_method" value="PATCH" class="btn btn-sm btn-primary pull-right">Save</button>
+          <button name="_method" value="DELETE" class="btn btn-sm btn-danger pull-left muted muted-hover"><i
+              class="fa fa-trash-o"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Nodes</h3>
+      </div>
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>FQDN</th>
+            <th>Servers</th>
+          </tr>
+          @each(node in location.nodes)
+          <tr>
+            <td><code>{{ node.id }}</code></td>
+            <td><a href="{{ route('admin.nodes.index', node.id) }}">{{ node.name }}</a></td>
+            <td><code>{{ node.fqdn }}</code></td>
+            <td>{{ node.servers.length }}</td>
+          </tr>
+          @endeach
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+@endslot
+
+@end

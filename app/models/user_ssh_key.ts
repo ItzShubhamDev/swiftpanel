@@ -1,6 +1,6 @@
 import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
-import User from './users.js'
+import User from './user.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class UserSshKey extends BaseModel {

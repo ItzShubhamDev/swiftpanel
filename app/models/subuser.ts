@@ -2,7 +2,7 @@ import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 import Server from './server.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
-import User from './users.js'
+import User from './user.js'
 
 export default class Subuser extends BaseModel {
   @column({ isPrimary: true })
