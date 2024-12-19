@@ -22,7 +22,7 @@
         <li><a href="{{ route('admin.nodes.show', [node.id]) }}">About</a></li>
         <li><a href="{{ route('admin.nodes.settings', [node.id]) }}">Settings</a></li>
         <li><a href="{{ route('admin.nodes.configuration', [node.id]) }}">Configuration</a></li>
-        <li class="active"><a href="{{ route('admin.nodes.allocation', [node.id]) }}">Allocation</a></li>
+        <li class="active"><a href="{{ route('admin.nodes.allocations.index', [node.id]) }}">Allocation</a></li>
         <li><a href="{{ route('admin.nodes.servers', [node.id]) }}">Servers</a></li>
       </ul>
     </div>
@@ -58,10 +58,10 @@
               </div>
             </th>
           </tr>
-          @each(allocation in node.allocations)
+          @each(allocation in allocations)
           <tr>
             <td class="middle min-size" data-identifier="type">
-              @if(!(allocation.serverId))
+              @if(!(serverId))
               <input type="checkbox" class="select-file hidden-xs" data-action="addSelection">
               @else
               <input disabled="disabled" type="checkbox" class="select-file hidden-xs" data-action="addSelection">
@@ -89,15 +89,13 @@
           @endeach
         </table>
       </div>
-      {{-- @if(node.allocations->hasPages())
-      <div class="box-footer text-center">
-        {{ node.allocations->render() }}
-      </div>
-      @endif --}}
+      @if(allocations.hasPages)
+      @!component('components/partials/admin/pagination', { 'data': allocations, pagination })
+      @endif
     </div>
   </div>
   <div class="col-sm-4">
-    <form action="{{ route('admin.nodes.allocation', [node.id]) }}" method="POST">
+    <form action="{{ route('admin.nodes.allocations.store', [node.id]) }}" method="POST">
       <div class="box box-success">
         <div class="box-header with-border">
           <h3 class="box-title">Assign New Allocations</h3>
@@ -107,8 +105,8 @@
             <label for="pAllocationIP" class="control-label">IP Address</label>
             <div>
               <select class="form-control" name="allocation_ip" id="pAllocationIP" multiple>
-                @each(allocation in node.allocations)
-                <option value="{{ allocation.ip }}">{{ allocation.ip }}</option>
+                @each(ip in ips)
+                <option value="{{ ip }}">{{ ip }}</option>
                 @endeach
               </select>
               <p class="text-muted small">Enter an IP address to assign ports to here.</p>
@@ -147,7 +145,7 @@
             aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Delete Allocations for IP Block</h4>
       </div>
-      <form action="{{ route('admin.nodes.allocation.removeBlock', [node.id]) }}" method="POST">
+      <form action="{{ route('admin.nodes.allocations.removeBlock', [node.id]) }}" method="POST">
         <div class="modal-body">
           <div class="row">
             <div class="col-md-12">
@@ -218,7 +216,7 @@
         }, function () {
             $.ajax({
                 method: 'DELETE',
-                url: '/admin/nodes/' + {{ node.id }} + '/allocation/remove/' + allocation,
+                url: '/admin/nodes/' + {{ node.id }} + '/allocations/remove/' + allocation,
                 headers: { 'X-CSRF-TOKEN': '{{ request.csrfToken }}'},
             }).done(function (data) {
                 element.parent().parent().addClass('warning').delay(100).fadeOut();
@@ -247,7 +245,7 @@
         clearTimeout(fadeTimers[element.data('id')]);
         $.ajax({
             method: 'POST',
-            url: '/admin/nodes/' + {{ node.id }} + '/allocation/alias',
+            url: '/admin/nodes/' + {{ node.id }} + '/allocations/alias',
             headers: { 'X-CSRF-TOKEN': '{{ request.csrfToken }}' },
             data: {
                 alias: element.val(),

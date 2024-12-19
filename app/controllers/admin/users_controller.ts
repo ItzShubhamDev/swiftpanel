@@ -1,4 +1,6 @@
 import User from '#models/user'
+import UserJsonTransformer from '#transformers/admin/user/json'
+import { md5 } from '#utils/admin/user'
 import { HttpContext } from '@adonisjs/core/http'
 import { ModelPaginator } from '@adonisjs/lucid/orm'
 
@@ -17,4 +19,17 @@ export default class UsersController {
   }
 
   async store({ view }: HttpContext) {}
+
+  async json({ request, response }: HttpContext) {
+    const query = request.qs()
+    if (query.user_id) {
+      const user = await User.findByOrFail('id', query.user_id)
+      return response.json(UserJsonTransformer(user))
+    }
+
+    const users = await User.query()
+      .where('email', 'LIKE', `%${query.filter ? query.filter.email : ''}%`)
+      .exec()
+    return response.json(users.map((user) => UserJsonTransformer(user)))
+  }
 }

@@ -22,7 +22,7 @@
         <li><a href="{{ route('admin.nodes.index', [node.id]) }}">About</a></li>
         <li><a href="{{ route('admin.nodes.settings', [node.id]) }}">Settings</a></li>
         <li><a href="{{ route('admin.nodes.configuration', [node.id]) }}">Configuration</a></li>
-        <li><a href="{{ route('admin.nodes.allocation', [node.id]) }}">Allocation</a></li>
+        <li><a href="{{ route('admin.nodes.allocations.index', [node.id]) }}">Allocation</a></li>
         <li class="active"><a href="{{ route('admin.nodes.servers', [node.id]) }}">Servers</a></li>
       </ul>
     </div>
@@ -42,7 +42,7 @@
             <th>Owner</th>
             <th>Service</th>
           </tr>
-          @each(server in node.servers)
+          @each(server in servers)
           <tr data-server="{{ server.uuid }}">
             <td><code>{{ server.uuidShort }}</code></td>
             <td><a href="{{ route('admin.servers.index', [server.id]) }}">{{ server.name }}</a></td>
@@ -51,11 +51,9 @@
           </tr>
           @endeach
         </table>
-        {{-- @if($servers->hasPages())
-        <div class="box-footer with-border">
-          <div class="col-md-12 text-center">{!! $servers->render() !!}</div>
-        </div>
-        @endif --}}
+        @if(servers.hasPages)
+        @!component('components/partials/admin/pagination', { 'data': servers, pagination })
+        @endif
       </div>
     </div>
   </div>

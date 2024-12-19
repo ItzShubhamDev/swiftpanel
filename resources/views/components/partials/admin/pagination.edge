@@ -1,0 +1,31 @@
+<div class="box-footer text-center">
+  <nav>
+    <ul class="pagination">
+      <li class="page-item {{ pagination.previousPageUrl ? '' : 'disabled' }}">
+        @if(pagination.previousPageUrl)
+        <a href="{{ pagination.previousPageUrl.substring(1) }}" class="page-link" rel="prev">
+          &lsaquo;
+        </a>
+        @else
+        <span class="page-link">&lsaquo;</span>
+        @endif
+      </li>
+      @each(anchor in data.getUrlsForRange(1, data.lastPage))
+      <li class="page-item  {{ anchor.isActive ? 'active' : '' }}">
+        <a href="{{ anchor.url.substring(1) }}" class="page-link">
+          {{ anchor.page }}
+        </a>
+      </li>
+      @endeach
+      <li class="page-item {{ pagination.nextPageUrl ? '' : 'disabled' }}">
+        @if(pagination.nextPageUrl)
+        <a href="{{ pagination.nextPageUrl.substring(1) }}" class="page-link" rel="next">
+          &rsaquo;
+        </a>
+        @else
+        <span class="page-link">&rsaquo;</span>
+        @endif
+      </li>
+    </ul>
+  </nav>
+</div>

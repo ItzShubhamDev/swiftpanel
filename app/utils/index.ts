@@ -87,3 +87,7 @@ export function decrypt(text: string) {
   let decrypted = Buffer.concat([decipher.update(ciphertext), decipher.final()])
   return decrypted.toString('utf8')
 }
+
+export function unique(array: any[]) {
+  return array.filter((value, index, self) => self.indexOf(value) === index)
+}

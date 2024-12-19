@@ -4,7 +4,7 @@
 List Servers
 @endslot
 
-@slot('content-header')
+@slot('header')
 <h1>Servers<small>All servers available on the system.</small></h1>
 <ol class="breadcrumb">
   <li><a href="{{ route('admin.index') }}">Admin</a></li>
@@ -25,7 +25,7 @@ List Servers
                 value="{{ request.input()['filter']['*'] ?? '' }}" --}} placeholder="Search Servers">
               <div class="input-group-btn">
                 <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                <a href="{{ route('admin.servers.new') }}"><button type="button" class="btn btn-sm btn-primary"
+                <a href="{{ route('admin.servers.create') }}"><button type="button" class="btn btn-sm btn-primary"
                     style="border-radius: 0 3px 3px 0;margin-left:-1px;">Create New</button></a>
               </div>
             </div>
@@ -46,12 +46,12 @@ List Servers
             </tr>
             @each (server in servers.data)
             <tr data-server="{{ server.uuidShort }}">
-              <td><a href="{{ route('admin.servers.view', [server.id]) }}">{{ server.name }}</a></td>
+              <td><a href="{{ route('admin.servers.show', [server.id]) }}">{{ server.name }}</a></td>
               <td><code title="{{ server.uuid }}">{{ server.uuid }}</code></td>
               <td><a href="{{ route('admin.users.view', [server.ownerId]) }}">{{ server.owner.username }}</a></td>
-              <td><a href="{{ route('admin.nodes.view', [server.nodeId]) }}">{{ server.node.name }}</a></td>
+              <td><a href="{{ route('admin.nodes.show', [server.nodeId]) }}">{{ server.node.name }}</a></td>
               <td>
-                <code>{{ server.allocations[0].ipAlias ?? server.allocations[0].ip }}:{{ server.allocations[0].port }}</code>
+                <code>{{ server.allocations.ipAlias ?? server.allocations.ip }}:{{ server.allocations.port }}</code>
               </td>
               <td class="text-center">
                 @if(server.status === 'suspended')
@@ -70,12 +70,9 @@ List Servers
           </tbody>
         </table>
       </div>
-      {{-- @if($servers->hasPages())
-      <div class="box-footer with-border">
-        <div class="col-md-12 text-center">{{ $servers->appends(['filter' => Request::input('filter')])->render() }}
-        </div>
-      </div>
-      @endif --}}
+      @if(servers.hasPages)
+      @!component('components/partials/admin/pagination', { 'data': servers, pagination })
+      @endif
     </div>
   </div>
 </div>

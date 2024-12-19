@@ -14,6 +14,7 @@ const NodesController = () => import('#controllers/admin/nodes/nodes_controller'
 const NodesInfoController = () => import('#controllers/admin/nodes/info_controller')
 
 const ServersController = () => import('#controllers/admin/servers/servers_controller')
+const ServersViewController = () => import('#controllers/admin/servers/view_controller')
 
 const UsersController = () => import('#controllers/admin/users_controller')
 
@@ -50,58 +51,56 @@ router
       })
       .prefix('databases')
       .as('databases')
-    router
-      .resource('locations', LocationsController)
-      .only(['index', 'store', 'show', 'update', 'destroy'])
-    router
-      .resource('nodes', NodesController)
-      .only(['index', 'store', 'show', 'update', 'destroy', 'create'])
+    router.resource('locations', LocationsController).except(['create', 'edit'])
+    router.resource('nodes', NodesController).except(['edit'])
     router
       .group(() => {
         router.get('/settings', [NodesInfoController, 'settings']).as('settings')
         router.get('/configuration', [NodesInfoController, 'configuration']).as('configuration')
-        router.get('/allocation', [NodesInfoController, 'allocation']).as('allocation')
         router.get('/servers', [NodesInfoController, 'servers']).as('servers')
         router
-          .post('/allocation', [NodesInfoController, 'createAllocation'])
-          .as('allocation.create')
-        router
-          .post('/allocation/remove', [NodesInfoController, 'removeBlock'])
-          .as('allocation.removeBlock')
-        router
-          .post('/allocation/:a_id/remove', [NodesInfoController, 'removeAllocation'])
-          .as('allocation.remove')
-        router
-          .delete('/allocation', [NodesInfoController, 'deleteAllocation'])
-          .as('allocation.delete')
+          .group(() => {
+            router.get('/', [NodesInfoController, 'allocation']).as('index')
+            router.post('/', [NodesInfoController, 'createAllocation']).as('store')
+            router.post('/alias', [NodesInfoController, 'alias']).as('alias')
+            router.post('/remove', [NodesInfoController, 'removeBlock']).as('removeBlock')
+            router.delete('/remove/:a_id', [NodesInfoController, 'removeAllocation']).as('remove')
+            router.delete('/', [NodesInfoController, 'deleteAllocation']).as('destory')
+          })
+          .prefix('allocations')
+          .as('allocations')
       })
       .prefix('nodes/:id')
       .as('nodes')
+    router.resource('servers', ServersController).except(['edit'])
     router
       .group(() => {
-        router.get('/', [ServersController, 'index']).as('index')
-        router.post('/', [ServersController, 'store']).as('new')
-        router.get(':id', [ServersController, 'index']).as('view')
+        router.get('/details', [ServersViewController, 'details']).as('details')
+        router.patch('/details', [ServersViewController, 'updateDetails']).as('details.update')
+        router.get('/build', [ServersViewController, 'build']).as('build')
+        router.patch('/build', [ServersViewController, 'updateBuild']).as('build.update')
+        router.get('/startup', [ServersViewController, 'startup']).as('startup')
+        router.get('/database', [ServersViewController, 'database']).as('database')
+        router.get('/mounts', [ServersViewController, 'mounts']).as('mounts')
+        router.get('/manage', [ServersViewController, 'manage']).as('manage')
+        router.get('/delete', [ServersViewController, 'delete']).as('delete')
       })
-      .prefix('servers')
+      .prefix('servers/:id')
       .as('servers')
     router
       .group(() => {
+        router.get('/accounts.json', [UsersController, 'json']).as('json')
         router.get('/', [UsersController, 'index']).as('index')
         router.post('/', [UsersController, 'store']).as('new')
         router.get(':id', [UsersController, 'index']).as('view')
       })
       .prefix('users')
       .as('users')
-    router
-      .resource('nests', NestsController)
-      .only(['index', 'create', 'show', 'destroy', 'update', 'store'])
+    router.resource('nests', NestsController).except(['edit'])
     router.post('/nests/import', [NestsController, 'importEgg']).as('nests.import')
     router
       .group(() => {
-        router
-          .resource('eggs', EggsController)
-          .only(['create', 'store', 'show', 'destroy', 'update'])
+        router.resource('eggs', EggsController).except(['edit', 'index'])
         router.post('/eggs/:id/import', [EggsController, 'importEgg']).as('eggs.import')
         router.get('/eggs/:id/export', [EggsController, 'export']).as('eggs.export')
         router
@@ -109,8 +108,8 @@ router
           .only(['index', 'store', 'update', 'destroy'])
         router.resource('eggs.scripts', EggScriptsController).only(['index', 'store'])
       })
-      .prefix('nests.eggs')
-      .as('nests.eggs')
+      .prefix('nests')
+      .as('nests')
   })
   .prefix('admin')
   .as('admin')

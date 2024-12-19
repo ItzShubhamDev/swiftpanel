@@ -1,4 +1,5 @@
 import Setting from '#models/setting'
+import { md5 } from '#utils/admin/user'
 import { formatDate } from '#utils/index'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
@@ -16,6 +17,7 @@ export default class AdminMiddleware {
     ctx.view.share({
       formatDate,
       config,
+      md5,
     })
     return next()
   }

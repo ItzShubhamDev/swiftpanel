@@ -55,7 +55,7 @@ $(document).on('click', function (event) {
 
 $('#pNodeId').on('change', function () {
     currentNode = $(this).val();
-    $.each(Pterodactyl.nodeData, function (i, v) {
+    $.each(Panel.nodeData, function (i, v) {
         if (v.id == currentNode) {
             $('#pAllocation').html('').select2({
                 data: v.allocations,
@@ -69,7 +69,7 @@ $('#pNodeId').on('change', function () {
 
 $('#pNestId').on('change', function (event) {
     $('#pEggId').html('').select2({
-        data: $.map(_.get(Pterodactyl.nests, $(this).val() + '.eggs', []), function (item) {
+        data: $.map(_.get(Panel.nests, $(this).val() + '.eggs', []), function (item) {
             return {
                 id: item.id,
                 text: item.name,
@@ -79,10 +79,10 @@ $('#pNestId').on('change', function (event) {
 });
 
 $('#pEggId').on('change', function (event) {
-    let parentChain = _.get(Pterodactyl.nests, $('#pNestId').val(), null);
+    let parentChain = _.get(Panel.nests, $('#pNestId').val(), null);
     let objectChain = _.get(parentChain, 'eggs.' + $(this).val(), null);
 
-    const images = _.get(objectChain, 'docker_images', {})
+    const images = JSON.parse(_.get(objectChain, 'dockerImages', {}))
     $('#pDefaultContainer').html('');
     const keys = Object.keys(images);
     for (let i = 0; i < keys.length; i++) {
@@ -118,15 +118,15 @@ $('#pEggId').on('change', function (event) {
     const variableIds = {};
     $('#appendVariablesTo').html('');
     $.each(_.get(objectChain, 'variables', []), function (i, item) {
-        variableIds[item.env_variable] = 'var_ref_' + item.id;
+        variableIds[item.envVariable] = 'var_ref_' + item.id;
 
         let isRequired = (item.required === 1) ? '<span class="label label-danger">Required</span> ' : '';
         let dataAppend = ' \
             <div class="form-group col-sm-6"> \
                 <label for="var_ref_' + escapeHtml(item.id) + '" class="control-label">' + isRequired + escapeHtml(item.name) + '</label> \
-                <input type="text" id="var_ref_' + escapeHtml(item.id) + '" autocomplete="off" name="environment[' + escapeHtml(item.env_variable) + ']" class="form-control" value="' + escapeHtml(item.default_value) + '" /> \
+                <input type="text" id="var_ref_' + escapeHtml(item.id) + '" autocomplete="off" name="environment[' + escapeHtml(item.envVariable) + ']" class="form-control" value="' + escapeHtml(item.defaultValue ?? '') + '" /> \
                 <p class="text-muted small">' + escapeHtml(item.description) + '<br /> \
-                <strong>Access in Startup:</strong> <code>{{' + escapeHtml(item.env_variable) + '}}</code><br /> \
+                <strong>Access in Startup:</strong> <code>{{' + escapeHtml(item.envVariable) + '}}</code><br /> \
                 <strong>Validation Rules:</strong> <code>' + escapeHtml(item.rules) + '</code></small></p> \
             </div> \
         ';
@@ -134,7 +134,7 @@ $('#pEggId').on('change', function (event) {
     });
 
     // If you receive a warning on this line, it should be fine to ignore. this function is
-    // defined in "resources/views/admin/servers/new.blade.php" near the bottom of the file.
+    // defined in "resources/views/admin/servers/create.edge" near the bottom of the file.
     serviceVariablesUpdated($('#pEggId').val(), variableIds);
 });
 
@@ -146,7 +146,7 @@ function updateAdditionalAllocations() {
     let currentAllocation = $('#pAllocation').val();
     let currentNode = $('#pNodeId').val();
 
-    $.each(Pterodactyl.nodeData, function (i, v) {
+    $.each(Panel.nodeData, function (i, v) {
         if (v.id == currentNode) {
             let allocations = [];
 

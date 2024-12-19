@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="nav-tabs-custom nav-tabs-floating">
+      <ul class="nav nav-tabs">
+        <li class="{{ activeTab === 'index' ? 'active' : '' }}">
+          <a href="{{ route('admin.servers.show', [server.id]) }}">About</a>
+        </li>
+        @if(server.installedAt)
+        <li class="{{ activeTab === 'details' ? 'active' : '' }}">
+          <a href="{{ route('admin.servers.details', [server.id]) }}">Details</a>
+        </li>
+        <li class="{{ activeTab === 'build' ? 'active' : '' }}">
+          <a href="{{ route('admin.servers.build', [server.id]) }}">Build Configuration</a>
+        </li>
+        <li class="{{ activeTab === 'startup' ? 'active' : '' }}">
+          <a href="{{ route('admin.servers.startup', [server.id]) }}">Startup</a>
+        </li>
+        <li class="{{ activeTab === 'database' ? 'active' : '' }}">
+          <a href="{{ route('admin.servers.database', [server.id]) }}">Database</a>
+        </li>
+        <li class="{{ activeTab === 'mounts' ? 'active' : '' }}">
+          <a href="{{ route('admin.servers.mounts', [server.id]) }}">Mounts</a>
+        </li>
+        @endif
+        <li class="{{ activeTab === 'manage' ? 'active' : '' }}">
+          <a href="{{ route('admin.servers.manage', [server.id]) }}">Manage</a>
+        </li>
+        <li class="tab-danger {{ activeTab === 'delete' ? 'active' : '' }}">
+          <a href="{{ route('admin.servers.delete', [server.id]) }}">Delete</a>
+        </li>
+        <li class="tab-success">
+          <a href="/server/{{ server.uuidShort }}" target="_blank"><i class="fa fa-external-link"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
