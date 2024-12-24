@@ -30,6 +30,7 @@ export default class UsersController {
     const users = await User.query()
       .where('email', 'LIKE', `%${query.filter ? query.filter.email : ''}%`)
       .exec()
+
     return response.json(users.map((user) => UserJsonTransformer(user)))
   }
 }

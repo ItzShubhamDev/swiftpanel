@@ -18,11 +18,11 @@ export default class ServersController {
     // Preload allocations was not working so I had to do it manually
     const srvs = data.map(async (server) => {
       const srv = server.serialize()
-      const allocations = await Allocation.query()
+      const allocation = await Allocation.query()
         .where('serverId', server.id)
         .select('ip', 'ip_alias', 'port')
         .first()
-      srv.allocations = allocations
+      srv.allocation = allocation?.serialize()
       return srv
     })
 

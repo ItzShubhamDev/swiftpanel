@@ -48,10 +48,10 @@ List Servers
             <tr data-server="{{ server.uuidShort }}">
               <td><a href="{{ route('admin.servers.show', [server.id]) }}">{{ server.name }}</a></td>
               <td><code title="{{ server.uuid }}">{{ server.uuid }}</code></td>
-              <td><a href="{{ route('admin.users.view', [server.ownerId]) }}">{{ server.owner.username }}</a></td>
-              <td><a href="{{ route('admin.nodes.show', [server.nodeId]) }}">{{ server.node.name }}</a></td>
+              <td><a href="{{ route('admin.users.view', [server.owner_id]) }}">{{ server.owner.username }}</a></td>
+              <td><a href="{{ route('admin.nodes.show', [server.node_id]) }}">{{ server.node.name }}</a></td>
               <td>
-                <code>{{ server.allocations.ipAlias ?? server.allocations.ip }}:{{ server.allocations.port }}</code>
+                <code>{{ server.allocation.ip_alias ?? server.allocation.ip }}:{{ server.allocation.port }}</code>
               </td>
               <td class="text-center">
                 @if(server.status === 'suspended')
@@ -63,7 +63,7 @@ List Servers
                 @endif
               </td>
               <td class="text-center">
-                <a class="btn btn-xs btn-default" href="/server/{{ server.uuidShort }}"><i class="fa fa-wrench"></i></a>
+                <a class="btn btn-xs btn-default" href="/server/{{ server.uuid_short }}"><i class="fa fa-wrench"></i></a>
               </td>
             </tr>
             @endeach

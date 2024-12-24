@@ -82,7 +82,7 @@ $('#pEggId').on('change', function (event) {
     let parentChain = _.get(Panel.nests, $('#pNestId').val(), null);
     let objectChain = _.get(parentChain, 'eggs.' + $(this).val(), null);
 
-    const images = JSON.parse(_.get(objectChain, 'dockerImages', {}))
+    const images = JSON.parse(_.get(objectChain, 'docker_images', {}))
     $('#pDefaultContainer').html('');
     const keys = Object.keys(images);
     for (let i = 0; i < keys.length; i++) {
@@ -118,15 +118,15 @@ $('#pEggId').on('change', function (event) {
     const variableIds = {};
     $('#appendVariablesTo').html('');
     $.each(_.get(objectChain, 'variables', []), function (i, item) {
-        variableIds[item.envVariable] = 'var_ref_' + item.id;
+        variableIds[item.env_variable] = 'var_ref_' + item.id;
 
         let isRequired = (item.required === 1) ? '<span class="label label-danger">Required</span> ' : '';
         let dataAppend = ' \
             <div class="form-group col-sm-6"> \
                 <label for="var_ref_' + escapeHtml(item.id) + '" class="control-label">' + isRequired + escapeHtml(item.name) + '</label> \
-                <input type="text" id="var_ref_' + escapeHtml(item.id) + '" autocomplete="off" name="environment[' + escapeHtml(item.envVariable) + ']" class="form-control" value="' + escapeHtml(item.defaultValue ?? '') + '" /> \
+                <input type="text" id="var_ref_' + escapeHtml(item.id) + '" autocomplete="off" name="environment[' + escapeHtml(item.env_variable) + ']" class="form-control" value="' + escapeHtml(item.default_value ?? '') + '" /> \
                 <p class="text-muted small">' + escapeHtml(item.description) + '<br /> \
-                <strong>Access in Startup:</strong> <code>{{' + escapeHtml(item.envVariable) + '}}</code><br /> \
+                <strong>Access in Startup:</strong> <code>{{' + escapeHtml(item.env_variable) + '}}</code><br /> \
                 <strong>Validation Rules:</strong> <code>' + escapeHtml(item.rules) + '</code></small></p> \
             </div> \
         ';

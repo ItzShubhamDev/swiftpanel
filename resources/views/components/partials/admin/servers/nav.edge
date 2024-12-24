@@ -5,7 +5,7 @@
         <li class="{{ activeTab === 'index' ? 'active' : '' }}">
           <a href="{{ route('admin.servers.show', [server.id]) }}">About</a>
         </li>
-        @if(server.installedAt)
+        @if(server.installed_at)
         <li class="{{ activeTab === 'details' ? 'active' : '' }}">
           <a href="{{ route('admin.servers.details', [server.id]) }}">Details</a>
         </li>

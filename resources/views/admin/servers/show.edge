@@ -31,8 +31,8 @@ Server — {{ server.name }}
               </tr>
               <tr>
                 <td>External Identifier</td>
-                @if(server.externalId)
-                <td><code>{{ server.externalId }}</code></td>
+                @if(server.external_id)
+                <td><code>{{ server.external_id }}</code></td>
                 @else
                 <td><span class="label label-default">Not Set</span></td>
                 @endif
@@ -44,8 +44,8 @@ Server — {{ server.name }}
               <tr>
                 <td>Current Egg</td>
                 <td>
-                  <a href="{{ route('admin.nests.show', [server.nestId]) }}">{{ server.nest.name }}</a> ::
-                  <a href="{{ route('admin.nests.eggs.show', [server.eggId]) }}">{{ server.egg.name }}</a>
+                  <a href="{{ route('admin.nests.show', [server.nest_id]) }}">{{ server.nest.name }}</a> ::
+                  <a href="{{ route('admin.nests.eggs.show', [server.egg_id]) }}">{{ server.egg.name }}</a>
                 </td>
               </tr>
               <tr>
@@ -111,8 +111,8 @@ Server — {{ server.name }}
               <tr>
                 <td>Connection Alias</td>
                 <td>
-                  @if(server.allocation.ipAlias && server.allocation.ipAlias !== server.allocation.ip)
-                  <code>{{ server.allocation.ipAlias }}:{{ server.allocation.port }}</code>
+                  @if(server.allocation.ip_alias && server.allocation.ip_alias !== server.allocation.ip)
+                  <code>{{ server.allocation.ip_alias }}:{{ server.allocation.port }}</code>
                   @else
                   <span class="label label-default">No Alias Assigned</span>
                   @endif
@@ -137,11 +137,11 @@ Server — {{ server.name }}
             </div>
           </div>
           @endif
-          @if(!server.isInstalled)
+          @if(!server.installed_at)
           <div class="col-sm-12">
-            <div class="small-box {{ (!server.isInstalled) ? 'bg-blue' : 'bg-maroon' }}">
+            <div class="small-box {{ (!server.installed_at) ? 'bg-blue' : 'bg-maroon' }}">
               <div class="inner">
-                <h3 class="no-margin">{{ (!server.isInstalled) ? 'Installing' : 'Install Failed' }}</h3>
+                <h3 class="no-margin">{{ (!server.installed_at) ? 'Installing' : 'Install Failed' }}</h3>
               </div>
             </div>
           </div>
@@ -153,7 +153,7 @@ Server — {{ server.name }}
                 <p>Server Owner</p>
               </div>
               <div class="icon"><i class="fa fa-user"></i></div>
-              <a href="{{ route('admin.users.index', [server.userId]) }}" class="small-box-footer">
+              <a href="{{ route('admin.users.index', [server.user_id]) }}" class="small-box-footer">
                 More info <i class="fa fa-arrow-circle-right"></i>
               </a>
             </div>

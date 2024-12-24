@@ -12,7 +12,7 @@ export default class ServersViewController {
       .where('id', params.id)
       .firstOrFail()
 
-    return view.render('admin/servers/pages/details', { server })
+    return view.render('admin/servers/pages/details', { server: server.serialize() })
   }
 
   async updateDetails({ params, request, response, session }: HttpContext) {
@@ -29,10 +29,18 @@ export default class ServersViewController {
   async build({ params, view }: HttpContext) {
     const server = await Server.query().where('id', params.id).firstOrFail()
     const allocations = await Allocation.query()
-    const assigned = allocations.filter((allocation) => allocation.serverId)
-    const unassigned = allocations.filter((allocation) => !allocation.serverId)
+    const assigned = allocations
+      .filter((allocation) => allocation.serverId)
+      .map((allocation) => allocation.serialize())
+    const unassigned = allocations
+      .filter((allocation) => !allocation.serverId)
+      .map((allocation) => allocation.serialize())
 
-    return view.render('admin/servers/pages/build', { server, assigned, unassigned })
+    return view.render('admin/servers/pages/build', {
+      server: server.serialize(),
+      assigned,
+      unassigned,
+    })
   }
 
   async updateBuild({ params, request, response, session }: HttpContext) {
