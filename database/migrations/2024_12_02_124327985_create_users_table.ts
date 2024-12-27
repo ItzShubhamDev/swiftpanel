@@ -16,7 +16,7 @@ export default class extends BaseSchema {
       table.string('remember_token')
       table.string('language', 5).notNullable().defaultTo('en')
       table.boolean('root_admin').notNullable().defaultTo(false)
-      table.boolean('use_totp').notNullable()
+      table.boolean('use_totp').notNullable().defaultTo(false)
       table.text('totp_secret')
       table.timestamp('totp_authenticated_at')
       table.tinyint('gravatar').notNullable().defaultTo(1)
