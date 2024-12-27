@@ -48,7 +48,7 @@ List Servers
             <tr data-server="{{ server.uuidShort }}">
               <td><a href="{{ route('admin.servers.show', [server.id]) }}">{{ server.name }}</a></td>
               <td><code title="{{ server.uuid }}">{{ server.uuid }}</code></td>
-              <td><a href="{{ route('admin.users.view', [server.owner_id]) }}">{{ server.owner.username }}</a></td>
+              <td><a href="{{ route('admin.users.show', [server.owner_id]) }}">{{ server.owner.username }}</a></td>
               <td><a href="{{ route('admin.nodes.show', [server.node_id]) }}">{{ server.node.name }}</a></td>
               <td>
                 <code>{{ server.allocation.ip_alias ?? server.allocation.ip }}:{{ server.allocation.port }}</code>

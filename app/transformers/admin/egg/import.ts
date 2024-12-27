@@ -24,7 +24,6 @@ export default async function EggImportTransformer(e: Egg) {
     scriptEntry: egg.scripts.installation.entrypoint,
     scriptInstall: egg.scripts.installation.script,
     eggVariables: egg.variables.map((variable) => {
-      console.log(variable)
       return {
         name: variable.name,
         description: variable.description ?? '',

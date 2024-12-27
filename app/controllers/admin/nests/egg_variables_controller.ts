@@ -62,11 +62,7 @@ export default class EggVariablesController {
     })
 
     await variable.save()
-    notify(
-      session,
-      'success',
-      nest.variables.notices.variable_updated.replace(':variable', variable.name)
-    )
+    notify(session, nest.variables.notices.variable_updated.replace(':variable', variable.name))
 
     return response.redirect().toRoute('admin.nests.egg.variables.index', { egg_id: egg.id })
   }
@@ -75,11 +71,7 @@ export default class EggVariablesController {
     const egg = await Egg.findOrFail(params.egg_id)
     const variable = await egg.related('eggVariables').query().where('id', params.id).firstOrFail()
     await variable.delete()
-    notify(
-      session,
-      'success',
-      nest.variables.notices.variable_deleted.replace(':variable', variable.name)
-    )
+    notify(session, nest.variables.notices.variable_deleted.replace(':variable', variable.name))
     return response.redirect().toRoute('admin.nests.egg.variables.index', { egg_id: egg.id })
   }
 }

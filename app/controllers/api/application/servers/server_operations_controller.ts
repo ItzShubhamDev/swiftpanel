@@ -1,6 +1,10 @@
 import serverTransformer from '#transformers/api/application/server'
 import Server from '#models/server'
-import { buildValidator, detailsValidator, startupValidator } from '#validators/server'
+import {
+  buildValidator,
+  detailsValidator,
+  startupValidator,
+} from '#validators/api/application/server'
 import { HttpContext } from '@adonisjs/core/http'
 
 export default class ServerOperationsController {

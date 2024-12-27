@@ -4,11 +4,13 @@ import { handle, signToken } from '../index.js'
 export async function contents(server: Server, file: string, download = false): Promise<string> {
   const response = await handle(
     server,
-    `/api/servers/${server.uuid}/files/contents?file${encodeURIComponent(file)}&download=${download}`,
-    'GET'
+    `/api/servers/${server.uuid}/files/contents?file=${encodeURIComponent(file)}` +
+      (download ? '&download=true' : ''),
+    'GET',
+    null,
+    null
   )
   const data = (await response.text()) as string
-
   return data
 }
 
@@ -31,7 +33,10 @@ export async function rename(
     to: string
   }[]
 ): Promise<void> {
-  await handle(server, `/api/servers/${server.uuid}/files/rename`, 'POST', { root, files })
+  await handle(server, `/api/servers/${server.uuid}/files/rename`, 'PUT', {
+    root,
+    files,
+  })
 }
 
 export async function copy(server: Server, location: string): Promise<void> {

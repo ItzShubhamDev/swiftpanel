@@ -1,6 +1,15 @@
-import { Bell, User, Search } from 'lucide-react'
+import { router, usePage } from '@inertiajs/react'
+import { UserIcon, Search, LogOut } from 'lucide-react'
+import type { User } from '#types/client/user'
 
 export function Navbar() {
+  const props = usePage().props
+  const user = props.user as User
+
+  const logout = () => {
+    router.post('/auth/logout')
+  }
+
   return (
     <header className="bg-white border-b border-gray-200">
       <div className="px-4 py-3 flex items-center justify-between">
@@ -16,15 +25,15 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-4">
-          <button className="relative p-2 text-gray-600 hover:bg-gray-100 rounded-full">
-            <Bell className="h-6 w-6" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
-
           <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
-            <span className="text-sm font-medium text-gray-700">John Doe</span>
+            <span className="text-sm font-medium text-gray-700">
+              {user.name_first} {user.name_last}
+            </span>
             <button className="p-1.5 bg-gray-100 rounded-full">
-              <User className="h-5 w-5 text-gray-600" />
+              <UserIcon className="h-5 w-5 text-gray-600" />
+            </button>
+            <button onClick={logout}>
+              <LogOut className="h-5 w-5 text-emerald-400" />
             </button>
           </div>
         </div>

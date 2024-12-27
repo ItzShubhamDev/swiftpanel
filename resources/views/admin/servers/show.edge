@@ -153,7 +153,7 @@ Server — {{ server.name }}
                 <p>Server Owner</p>
               </div>
               <div class="icon"><i class="fa fa-user"></i></div>
-              <a href="{{ route('admin.users.index', [server.user_id]) }}" class="small-box-footer">
+              <a href="{{ route('admin.users.show', [server.owner_id]) }}" class="small-box-footer">
                 More info <i class="fa fa-arrow-circle-right"></i>
               </a>
             </div>

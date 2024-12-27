@@ -13,7 +13,7 @@ Advanced Settings
 @endslot
 
 @slot('content')
-@!component('components/partials/admin/settings/nav', { activeTab: 'basic' })
+@!component('components/partials/admin/settings/nav', { activeTab: 'advanced' })
 <div class="row">
   <div class="col-xs-12">
     <form action="" method="POST">
@@ -28,7 +28,7 @@ Advanced Settings
               <div>
                 <select class="form-control" name="recaptcha:enabled">
                   <option value="true">Enabled</option>
-                  <option value="false" {{ config('recaptcha:enabled')==='0' ? 'selected' : '' }}>Disabled</option>
+                  <option value="false" {{ config['recaptcha:enabled']==='0' ? 'selected' : '' }}>Disabled</option>
                 </select>
                 <p class="text-muted small">If enabled, login forms and password reset forms will do a silent captcha
                   check and display a visible captcha if needed.</p>
@@ -38,20 +38,20 @@ Advanced Settings
               <label class="control-label">Site Key</label>
               <div>
                 <input type="text" required class="form-control" name="recaptcha:website_key"
-                  value="{{ config('recaptcha:website_key')) }}">
+                  value="{{ config['recaptcha:website_key'] ?? ''  }}">
               </div>
             </div>
             <div class="form-group col-md-4">
               <label class="control-label">Secret Key</label>
               <div>
                 <input type="text" required class="form-control" name="recaptcha:secret_key"
-                  value="{{ config('recaptcha:secret_key')) }}">
+                  value="{{ config['recaptcha:secret_key'] ?? '' }}">
                 <p class="text-muted small">Used for communication between your site and Google. Be sure to keep it a
                   secret.</p>
               </div>
             </div>
           </div>
-          @if($showRecaptchaWarning)
+          @if(showRecaptchaWarning)
           <div class="row">
             <div class="col-xs-12">
               <div class="alert alert-warning no-margin">
@@ -74,7 +74,7 @@ Advanced Settings
               <label class="control-label">Connection Timeout</label>
               <div>
                 <input type="number" required class="form-control" name="pterodactyl:guzzle:connect_timeout"
-                  value="{{ config('pterodactyl:guzzle:connect_timeout')) }}">
+                  value="{{ config['pterodactyl:guzzle:connect_timeout'] }}">
                 <p class="text-muted small">The amount of time in seconds to wait for a connection to be opened before
                   throwing an error.</p>
               </div>
@@ -83,7 +83,7 @@ Advanced Settings
               <label class="control-label">Request Timeout</label>
               <div>
                 <input type="number" required class="form-control" name="pterodactyl:guzzle:timeout"
-                  value="{{ config('pterodactyl:guzzle:timeout')) }}">
+                  value="{{ config['pterodactyl:guzzle:timeout'] }}">
                 <p class="text-muted small">The amount of time in seconds to wait for a request to be completed before
                   throwing an error.</p>
               </div>
@@ -102,7 +102,7 @@ Advanced Settings
               <div>
                 <select class="form-control" name="pterodactyl:client_features:allocations:enabled">
                   <option value="false">Disabled</option>
-                  <option value="true" {{ config('pterodactyl:client_features:allocations:enabled') ? 'selected' : ''
+                  <option value="true" {{ config['pterodactyl:client_features:allocations:enabled'] ? 'selected' : ''
                     }}>Enabled</option>
                 </select>
                 <p class="text-muted small">If enabled users will have the option to automatically create new
@@ -113,7 +113,7 @@ Advanced Settings
               <label class="control-label">Starting Port</label>
               <div>
                 <input type="number" class="form-control" name="pterodactyl:client_features:allocations:range_start"
-                  value="{{ config('pterodactyl:client_features:allocations:range_start')) }}">
+                  value="{{ config['pterodactyl:client_features:allocations:range_start'] }}">
                 <p class="text-muted small">The starting port in the range that can be automatically allocated.</p>
               </div>
             </div>
@@ -121,7 +121,7 @@ Advanced Settings
               <label class="control-label">Ending Port</label>
               <div>
                 <input type="number" class="form-control" name="pterodactyl:client_features:allocations:range_end"
-                  value="{{ config('pterodactyl:client_features:allocations:range_end')) }}">
+                  value="{{ config['pterodactyl:client_features:allocations:range_end'] }}">
                 <p class="text-muted small">The ending port in the range that can be automatically allocated.</p>
               </div>
             </div>

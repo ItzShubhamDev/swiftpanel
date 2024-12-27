@@ -4,7 +4,7 @@ export default function serverTransformer(server: Server) {
   const res = {
     object: 'server',
     attributes: {
-      server_owner: server.owner,
+      server_owner: server.ownerId,
       identifier: server.uuidShort,
       uuid: server.uuid,
       name: server.name,

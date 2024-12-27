@@ -1,5 +1,5 @@
 import Server from '#models/server'
-import serverTransformer from '#transformers/api/wings/server'
+import serverTransformer from '#transformers/api/remote/server'
 import { wingsPagination } from '#utils/api/remote/servers'
 import {
   STATUS_INSTALL_FAILED,
@@ -12,13 +12,15 @@ import { HttpContext } from '@adonisjs/core/http'
 import vine from '@vinejs/vine'
 import { DateTime } from 'luxon'
 
+type Data = ReturnType<typeof serverTransformer>
+
 export default class ServerController {
   async index(params: HttpContext) {
-    const page = params.request.input('page', 1)
+    const page = params.request.input('page', 1) < 1 ? 1 : params.request.input('page', 1)
     const perPage = params.request.input('per_page', 50)
 
     const servers = await Server.query()
-      .preload('node')
+      .preload('node', (n) => n.preload('location'))
       .preload('allocations')
       .preload('egg')
       .preload('serverVariables', (v) => v.preload('variable'))
@@ -30,8 +32,16 @@ export default class ServerController {
       servers.lastPage,
       '/api/remote/servers'
     )
+
+    const data = [] as Data[]
+
+    servers.forEach((server) => {
+      const transformed = serverTransformer(server as Server)
+      data.push(transformed)
+    })
+
     const response = {
-      data: servers.serialize().data.map((server: any) => serverTransformer(server)),
+      data,
       links: pagination.links,
       meta: pagination.meta,
     }
@@ -49,7 +59,6 @@ export default class ServerController {
       .firstOrFail()
 
     const { uuid, ...data } = serverTransformer(server)
-
     return data
   }
 
@@ -85,9 +94,10 @@ export default class ServerController {
     return response.noContent()
   }
 
-  async reset({ response }: HttpContext) {
+  async reset({ response, node }: HttpContext) {
     await Server.query()
       .whereIn('status', [STATUS_INSTALLING, STATUS_RESTORING_BACKUP])
+      .andWhere('nodeId', node!.id)
       .update({ status: null })
 
     return response.noContent()

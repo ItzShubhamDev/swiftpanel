@@ -17,8 +17,6 @@ export default class AuthController {
 
   async logout({ auth, response }: HttpContext) {
     await auth.use('web').logout()
-    console.log('Logged out')
-
-    return response.redirect().toRoute('auth.index')
+    return response.redirect().toRoute('auth.login.index')
   }
 }

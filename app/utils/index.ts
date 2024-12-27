@@ -1,5 +1,6 @@
 import { appKey } from '#config/app'
 import crypto from 'node:crypto'
+import string from '@adonisjs/core/helpers/string'
 
 export function count(total: number, perPage: number, currentPage: number, lastPage: number) {
   if (total <= 0 || perPage <= 0 || currentPage <= 0) {
@@ -90,4 +91,25 @@ export function decrypt(text: string) {
 
 export function unique(array: any[]) {
   return array.filter((value, index, self) => self.indexOf(value) === index)
+}
+
+export function convertObjToCamelCase(obj: Record<string, any>): Record<string, any> {
+  if (Array.isArray(obj)) {
+    return obj.map((item) => convertObjToCamelCase(item))
+  }
+
+  if (obj !== null && typeof obj === 'object') {
+    return Object.keys(obj).reduce(
+      (acc: Record<string, any>, key: string): Record<string, any> => {
+        const newKey = string.camelCase(key)
+        return {
+          ...acc,
+          [newKey]: convertObjToCamelCase(obj[key]),
+        } as Record<string, any>
+      },
+      {} as Record<string, any>
+    )
+  }
+
+  return obj
 }

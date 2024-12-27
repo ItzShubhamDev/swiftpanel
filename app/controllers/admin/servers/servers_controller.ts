@@ -86,7 +86,7 @@ export default class ServersController {
     await server.related('serverVariables').createMany(variables)
 
     notify(session, serverNotices.alerts.server_created)
-    return response.redirect().toRoute('admin.servers.index', { id: server.id })
+    return response.redirect().toRoute('admin.servers.show', { id: server.id })
   }
 
   async create({ view }: HttpContext) {

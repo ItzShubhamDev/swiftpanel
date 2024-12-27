@@ -1,3 +1,4 @@
+import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 
 const UsersController = () => import('#controllers/api/application/users/users_controller')
@@ -35,3 +36,4 @@ router
     router.resource('nests.eggs', EggsController).only(['index', 'show'])
   })
   .prefix('api/application')
+  .use(middleware.auth({ guards: ['api'] }))

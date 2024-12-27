@@ -25,35 +25,35 @@ Administration
       <div class="box-header with-border">
         <h3 class="box-title">System Information</h3>
       </div>
-      {{-- <div class="box-body">
-        @if ('admin' === 'admin')
-        You are running Pterodactyl Panel version <code>{{ config('app.version') }}</code>. Your panel is up-to-date!
+      <div class="box-body">
+        @if (panel.version === panel.latest)
+        You are running Swift Panel version <code>{{ panel.version }}</code>. Your panel is up-to-date!
         @else
         Your panel is <strong>not up-to-date!</strong> The latest version is <a
-          href="https://github.com/Pterodactyl/Panel/releases/v{{ $version->getPanel() }}"
-          target="_blank"><code>{{ $version->getPanel() }}</code></a> and you are currently running version
-        <code>{{ config('app.version') }}</code>.
+          href="https://github.com/Pterodactyl/Panel/releases/v{{ panel.latest }}"
+          target="_blank"><code>{{ panel.latest }}</code></a> and you are currently running version
+        <code>{{ panel.version }}</code>.
         @endif
-      </div> --}}
+      </div>
     </div>
   </div>
 </div>
 <div class="row">
   {{-- <div class="col-xs-6 col-sm-3 text-center">
-    <a href="{{ $version->getDiscord() }}"><button class="btn btn-warning" style="width:100%;"><i
+    <a href="{{ panel.discord }}"><button class="btn btn-warning" style="width:100%;"><i
           class="fa fa-fw fa-support"></i> Get Help <small>(via Discord)</small></button></a>
   </div> --}}
   <div class="col-xs-6 col-sm-3 text-center">
-    <a href="https://pterodactyl.io"><button class="btn btn-primary" style="width:100%;"><i
-          class="fa fa-fw fa-link"></i> Documentation</button></a>
+    <a href="https://swiftpanel.io"><button class="btn btn-primary" style="width:100%;"><i class="fa fa-fw fa-link"></i>
+        Documentation</button></a>
   </div>
   <div class="clearfix visible-xs-block">&nbsp;</div>
   <div class="col-xs-6 col-sm-3 text-center">
-    <a href="https://github.com/pterodactyl/panel"><button class="btn btn-primary" style="width:100%;"><i
-          class="fa fa-fw fa-support"></i> GitHub</button></a>
+    <a href="https://github.com/itzshubhamdev/swiftpanel"><button class="btn btn-primary" style="width:100%;"><i
+          class="fa fa-fw fa-github"></i> GitHub</button></a>
   </div>
   {{-- <div class="col-xs-6 col-sm-3 text-center">
-    <a href="{{ $version->getDonations() }}"><button class="btn btn-success" style="width:100%;"><i
+    <a href="{{ panel.donations }}"><button class="btn btn-success" style="width:100%;"><i
           class="fa fa-fw fa-money"></i> Support the Project</button></a>
   </div> --}}
 </div>

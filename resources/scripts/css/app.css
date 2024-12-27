@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Ubuntu";
-  src: url('/resources/fonts/ubuntu.ttf') format('truetype');
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -16,4 +11,17 @@ html,
 body {
   height: 100%;
   width: 100%;
+}
+
+.CodeMirror {
+  font-size: 14px;
+  height: 500px !important;
+}
+
+.CodeMirror-gutters {
+  border-right: 1px solid #e5e7eb;
+}
+
+.CodeMirror-linenumber {
+  color: #6b7280;
 }

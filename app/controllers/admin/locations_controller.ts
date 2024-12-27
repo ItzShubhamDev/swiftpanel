@@ -1,6 +1,6 @@
 import exceptions from '#langs/en/exceptions'
 import Location from '#models/location'
-import { notify } from '#utils/admin/admin'
+import { notify, notifyError } from '#utils/admin/admin'
 import { locationValidator } from '#validators/admin/locations'
 import { HttpContext } from '@adonisjs/core/http'
 
@@ -50,7 +50,7 @@ export default class LocationsController {
   async destroy({ response, session, params }: HttpContext) {
     const location = await Location.query().withCount('nodes').where('id', params.id).firstOrFail()
     if (location.$extras.nodes_count > 0) {
-      notify(session, 'error', exceptions.locations.has_nodes)
+      notifyError(session, exceptions.locations.has_nodes)
       return response.redirect().back()
     }
     await location.delete()

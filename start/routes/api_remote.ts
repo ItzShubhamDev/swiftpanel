@@ -1,3 +1,4 @@
+import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 const ServerController = () => import('#controllers/api/remote/servers_controller')
 const ActivityController = () => import('#controllers/api/remote/activity_controller')
@@ -11,3 +12,4 @@ router
     router.resource('activity', ActivityController).only(['index'])
   })
   .prefix('api/remote')
+  .use(middleware.wings())

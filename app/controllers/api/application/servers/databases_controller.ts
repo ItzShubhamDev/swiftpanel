@@ -1,7 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import Database from '#models/database'
 import databaseTransformer from '#transformers/api/application/database'
-import { databaseValidator } from '#validators/server'
+import { databaseValidator } from '#validators/api/application/server'
 
 export default class DatabasesController {
   async index({ params }: HttpContext) {
@@ -21,10 +21,9 @@ export default class DatabasesController {
     return databaseTransformer(database)
   }
 
-  async store({ request, params, response }: HttpContext) {
-    const payload = await request.validateUsing(databaseValidator)
-
-    response.created({ message: 'Not implemented' })
+  async store({ response }: HttpContext) {
+    return response.notImplemented()
+    // const payload = await request.validateUsing(databaseValidator)
   }
 
   async destroy({ params, response }: HttpContext) {

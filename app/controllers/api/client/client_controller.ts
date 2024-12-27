@@ -3,17 +3,27 @@ import serverTransformer from '#transformers/api/client/server'
 import Server from '#models/server'
 import { HttpContext } from '@adonisjs/core/http'
 
-export default class CLientController {
-  async index({ request }: HttpContext) {
+type Data = ReturnType<typeof serverTransformer>
+
+export default class ClientController {
+  async index({ request, auth }: HttpContext) {
     const page = request.input('page', 1)
     const limit = request.input('limit', 50)
-    const servers = await Server.query().preload('node').where('owner_id', 1).paginate(page, limit)
+    const user = await auth.authenticateUsing(['web', 'api'])
+    const servers = await Server.query()
+      .preload('node')
+      .where('owner_id', user.id)
+      .paginate(page, limit)
+
+    const data = [] as Data[]
+    servers.forEach((server) => {
+      const transformed = serverTransformer(server)
+      data.push(transformed)
+    })
 
     const response = {
       object: 'list',
-      data: servers.serialize().data.map((n) => {
-        return serverTransformer(n as Server)
-      }),
+      data,
       meta: {
         pagination: pagination(
           servers.total,

@@ -76,7 +76,7 @@
             <td class="col-sm-2 middle" data-identifier="port">{{ allocation.port }}</td>
             <td class="col-sm-3 middle">
               @if(allocation.server)
-              <a href="{{ route('admin.servers.index', [allocation.serverId]) }}">{{ allocation.server.name }}</a>
+              <a href="{{ route('admin.servers.show', [allocation.serverId]) }}">{{ allocation.server.name }}</a>
               @endif
             </td>
             <td class="col-sm-1 middle">

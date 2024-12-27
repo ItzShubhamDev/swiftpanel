@@ -3,7 +3,7 @@ import { pagination } from '#utils/index'
 import Server from '#models/server'
 import { getVariables } from '#utils/api/application/servers'
 import serverTransformer from '#transformers/api/application/server'
-import { serverValidator, variableValidator } from '#validators/server'
+import { serverValidator, variableValidator } from '#validators/api/application/server'
 
 export default class ServersController {
   async index({ request }: HttpContext) {

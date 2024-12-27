@@ -1,10 +1,10 @@
-import { Lock, Mail } from 'lucide-react'
+import { Lock, LucideMail, LucideUserRound } from 'lucide-react'
 import { useState } from 'react'
-import { router } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
+import { toast } from 'react-toastify'
 
 export default function Page() {
   const [values, setValues] = useState({ email: '', password: '' })
-  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -12,67 +12,83 @@ export default function Page() {
     try {
       router.post('/auth/login', values)
     } catch (error) {
-      setError(error.message)
+      toast.error('Failed to login')
     }
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 pt-24 pb-12 text-white">
-      <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gray-800 rounded-2xl p-8">
-          <div className="text-center mb-8">
-            <h1 className="text-2xl font-bold">Welcome Back</h1>
-            <p className="text-gray-400">Sign in to your account</p>
+    <>
+      <Head>
+        <title>Login</title>
+      </Head>
+      <div className="min-h-screen w-full bg-gradient-to-br from-emerald-50 to-white flex items-center justify-center p-4">
+        <div className="rounded-xl border bg-card text-card-foreground w-full max-w-md shadow-xl border-emerald-100">
+          <div className="flex flex-col p-6 space-y-3">
+            <div className="mx-auto bg-emerald-100 p-3 rounded-full">
+              <LucideUserRound className="w-10 h-10 text-emerald-600" />
+            </div>
+            <h3 className="font-semibold tracking-tight text-2xl text-center text-gray-800">
+              Welcome Back
+            </h3>
+            <p className="text-sm text-center text-gray-600">
+              Please sign in to continue to your account
+            </p>
           </div>
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-medium mb-2">Email</label>
+          <form className="p-6 pt-0 space-y-6" onSubmit={handleSubmit}>
+            <div className="space-y-2">
+              <label
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700"
+                htmlFor="email"
+              >
+                Email
+              </label>
               <div className="relative">
+                <LucideMail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                 <input
                   type="email"
-                  className="w-full bg-gray-700 rounded-lg px-4 py-2 pl-10"
-                  placeholder="you@example.com"
+                  className="flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-10 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500"
+                  id="email"
                   value={values.email}
                   onChange={(e) => setValues({ ...values, email: e.target.value })}
                   required
+                  placeholder="Enter your email"
                 />
-                <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
               </div>
             </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-2">Password</label>
+            <div className="space-y-2">
+              <label
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-700"
+                htmlFor="password"
+              >
+                Password
+              </label>
               <div className="relative">
+                <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                 <input
                   type="password"
-                  className="w-full bg-gray-700 rounded-lg px-4 py-2 pl-10"
-                  placeholder="••••••••"
+                  className="flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-10 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500"
+                  id="password"
                   value={values.password}
                   onChange={(e) => setValues({ ...values, password: e.target.value })}
                   required
+                  placeholder="Enter your password"
                 />
-                <Lock className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
               </div>
             </div>
-
-            <div className="flex items-center justify-between">
-              <a href="/forgot-password" className="text-sm text-blue-400 hover:text-blue-300">
+            <div className="flex justify-end">
+              <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 underline-offset-4 hover:underline h-9 px-4 py-2 text-emerald-600 hover:text-emerald-700">
                 Forgot password?
-              </a>
+              </button>
             </div>
-
-            <div className="text-red-400 h-6 w-full">{error}</div>
-
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded-lg font-semibold"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 shadow h-9 px-4 py-2 w-full bg-emerald-600 hover:bg-emerald-700 text-white"
             >
               Sign In
             </button>
           </form>
         </div>
       </div>
-    </div>
+    </>
   )
 }

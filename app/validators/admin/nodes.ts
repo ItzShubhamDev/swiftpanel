@@ -1,6 +1,6 @@
 import vine from '@vinejs/vine'
 
-const node = {
+const node = vine.object({
   name: vine.string(),
   description: vine.string().optional().nullable(),
   location_id: vine.number().withoutDecimals().positive(),
@@ -14,18 +14,18 @@ const node = {
   disk_overallocate: vine.number().withoutDecimals().positive(),
   daemonListen: vine.number().withoutDecimals().positive().min(1024).max(65535),
   daemonSftp: vine.number().withoutDecimals().positive().min(1024).max(65535),
-}
+})
 
 export const updateNodeValidator = vine.compile(
   vine.object({
     maintenance_mode: vine.boolean(),
     reset_secret: vine.boolean().optional(),
     upload_size: vine.number().withoutDecimals().positive(),
-    ...node,
+    ...node.getProperties(),
   })
 )
 
-export const createNodeValidator = vine.compile(vine.object(node))
+export const createNodeValidator = vine.compile(node)
 
 export const removeBlockValidator = vine.compile(vine.object({ ip: vine.string().ipAddress() }))
 

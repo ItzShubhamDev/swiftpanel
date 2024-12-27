@@ -3,10 +3,14 @@ import { Server as WingsServer } from '#types/wings/server'
 import { handle } from '#utils/wings/index'
 
 export async function serverResources(server: Server): Promise<WingsServer> {
-  const response = await handle(server, `/api/servers/${server.uuid}/resources`)
+  const response = await handle(server, `/api/servers/${server.uuid}`)
   const data = (await response.json()) as WingsServer
 
   return data
+}
+
+export async function deleteServer(server: Server): Promise<void> {
+  await handle(server, `/api/servers/${server.uuid}`, 'DELETE')
 }
 
 export async function serverLogs(server: Server): Promise<string[]> {
@@ -18,10 +22,9 @@ export async function serverLogs(server: Server): Promise<string[]> {
 
 export async function power(
   server: Server,
-  action: 'start' | 'stop' | 'restart' | 'kill',
-  wait_seconds: number
+  action: 'start' | 'stop' | 'restart' | 'kill'
 ): Promise<void> {
-  await handle(server, `/api/servers/${server.uuid}/power`, 'POST', { action, wait_seconds })
+  await handle(server, `/api/servers/${server.uuid}/power`, 'POST', { action })
 }
 
 export async function commands(server: Server, commandsArr: string[]): Promise<void> {

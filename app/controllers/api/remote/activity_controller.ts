@@ -5,12 +5,14 @@ import User from '#models/user'
 import ActivityLog from '#models/activity_log'
 
 export default class ActivityController {
-  async activity({ request }: HttpContext) {
+  async activity({ request, node, response }: HttpContext) {
     const payload = await request.validateUsing(activityValidator)
-    const servers = await Server.query().whereIn(
-      'uuid',
-      payload.data.map((activity) => activity.server)
-    )
+    const servers = await Server.query()
+      .whereIn(
+        'uuid',
+        payload.data.map((activity) => activity.server)
+      )
+      .andWhere('nodeId', node!.id)
     const users = await User.query().whereIn(
       'uuid',
       payload.data.map((activity) => activity.user)
@@ -29,6 +31,6 @@ export default class ActivityController {
       })
     )
 
-    return ''
+    return response.noContent()
   }
 }

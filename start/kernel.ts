@@ -28,7 +28,6 @@ server.use([
   () => import('@adonisjs/cors/cors_middleware'),
   () => import('@adonisjs/vite/vite_middleware'),
   () => import('@adonisjs/inertia/inertia_middleware'),
-  () => import('@izzyjs/route/izzy_middleware'),
   () => import('@adonisjs/core/bodyparser_middleware'),
 ])
 
@@ -47,7 +46,9 @@ router.use([
  * the routes or the routes group.
  */
 export const middleware = router.named({
+  wings: () => import('#middleware/wings_middleware'),
   guest: () => import('#middleware/guest_middleware'),
   auth: () => import('#middleware/auth_middleware'),
   admin: () => import('#middleware/admin_middleware'),
+  user: () => import('#middleware/client_middleware'),
 })

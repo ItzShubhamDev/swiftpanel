@@ -10,7 +10,7 @@ import Layout from './layout.js'
 const appName = import.meta.env.VITE_APP_NAME || 'SwiftPanel'
 
 createInertiaApp({
-  progress: { color: '#5468FF' },
+  progress: { color: '#34D399' },
 
   title: (title) => `${title} - ${appName}`,
 

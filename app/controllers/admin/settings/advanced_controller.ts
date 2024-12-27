@@ -1,4 +1,5 @@
 import Setting from '#models/setting'
+import { notify } from '#utils/admin/admin'
 import { HttpContext } from '@adonisjs/core/http'
 
 export default class SettingsController {
@@ -12,11 +13,10 @@ export default class SettingsController {
     for (const key in settings) {
       await Setting.updateOrCreate({ key }, { value: settings[key] })
     }
-    session.flash('alert', {
-      type: 'success',
-      message:
-        'Panel settings have been updated successfully and the queue worker was restarted to apply these changes.',
-    })
+    notify(
+      session,
+      'Panel settings have been updated successfully and the queue worker was restarted to apply these changes.'
+    )
     return response.redirect().back()
   }
 }

@@ -12,3 +12,12 @@ export function notifyError(session: Session, errors: any) {
 export function notify(session: Session, message: string) {
   session.flash('alert', { type: 'success', message })
 }
+
+export async function getLatestVersion() {
+  const res = await fetch('https://api.github.com/repos/itzshubhamdev/swiftpanel/releases/latest')
+  if (!res.ok) {
+    return 'Unknown'
+  }
+  const json = (await res.json()) as { tag_name: string }
+  return json.tag_name
+}

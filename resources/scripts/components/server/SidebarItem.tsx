@@ -1,4 +1,4 @@
-import { route } from '@izzyjs/route/client'
+import { usePage } from '@inertiajs/react'
 
 export default function Item({
   href,
@@ -11,10 +11,11 @@ export default function Item({
   icon: React.ReactNode
   routeName?: string
 }) {
+  const { route } = usePage().props as unknown as { route: string }
   return (
     <a
       href={href}
-      className={`flex items-center gap-2 px-4 py-2 text-gray-300 hover:bg-gray-700 transition-colors ${routeName && route().current(routeName as any) ? 'bg-gray-800 text-emerald-400' : ''}`}
+      className={`flex items-center gap-2 px-4 py-2  hover:bg-gray-600 transition-colors ${routeName && route.includes(routeName) ? 'bg-gray-700 text-emerald-400' : 'text-gray-300'}`}
     >
       {icon}
       <span>{name}</span>

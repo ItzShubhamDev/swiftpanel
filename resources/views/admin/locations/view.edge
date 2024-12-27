@@ -56,7 +56,7 @@ Locations &rarr; View &rarr; {{ location.short }}
           @each(node in location.nodes)
           <tr>
             <td><code>{{ node.id }}</code></td>
-            <td><a href="{{ route('admin.nodes.index', node.id) }}">{{ node.name }}</a></td>
+            <td><a href="{{ route('admin.nodes.show', [node.id]) }}">{{ node.name }}</a></td>
             <td><code>{{ node.fqdn }}</code></td>
             <td>{{ node.servers.length }}</td>
           </tr>

@@ -19,7 +19,7 @@
   <div class="col-xs-12">
     <div class="nav-tabs-custom nav-tabs-floating">
       <ul class="nav nav-tabs">
-        <li><a href="{{ route('admin.nodes.index', [node.id]) }}">About</a></li>
+        <li><a href="{{ route('admin.nodes.show', [node.id]) }}">About</a></li>
         <li><a href="{{ route('admin.nodes.settings', [node.id]) }}">Settings</a></li>
         <li><a href="{{ route('admin.nodes.configuration', [node.id]) }}">Configuration</a></li>
         <li><a href="{{ route('admin.nodes.allocations.index', [node.id]) }}">Allocation</a></li>
@@ -45,8 +45,8 @@
           @each(server in servers)
           <tr data-server="{{ server.uuid }}">
             <td><code>{{ server.uuidShort }}</code></td>
-            <td><a href="{{ route('admin.servers.index', [server.id]) }}">{{ server.name }}</a></td>
-            <td><a href="{{ route('admin.users.index', [server.ownerId]) }}">{{ server.owner.username }}</a></td>
+            <td><a href="{{ route('admin.servers.show', [server.id]) }}">{{ server.name }}</a></td>
+            <td><a href="{{ route('admin.users.show', [server.ownerId]) }}">{{ server.owner.username }}</a></td>
             <td>{{ server.nest.name }} ({{ server.egg.name }})</td>
           </tr>
           @endeach

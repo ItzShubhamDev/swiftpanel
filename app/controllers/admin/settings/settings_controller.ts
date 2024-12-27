@@ -15,7 +15,6 @@ export default class SettingsController {
     }
     notify(
       session,
-      'success',
       'Panel settings have been updated successfully and the queue worker was restarted to apply these changes.'
     )
     return response.redirect().toRoute('admin.settings.index')

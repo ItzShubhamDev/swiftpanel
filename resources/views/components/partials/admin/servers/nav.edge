@@ -18,9 +18,6 @@
         <li class="{{ activeTab === 'database' ? 'active' : '' }}">
           <a href="{{ route('admin.servers.database', [server.id]) }}">Database</a>
         </li>
-        <li class="{{ activeTab === 'mounts' ? 'active' : '' }}">
-          <a href="{{ route('admin.servers.mounts', [server.id]) }}">Mounts</a>
-        </li>
         @endif
         <li class="{{ activeTab === 'manage' ? 'active' : '' }}">
           <a href="{{ route('admin.servers.manage', [server.id]) }}">Manage</a>
@@ -29,7 +26,7 @@
           <a href="{{ route('admin.servers.delete', [server.id]) }}">Delete</a>
         </li>
         <li class="tab-success">
-          <a href="/server/{{ server.uuidShort }}" target="_blank"><i class="fa fa-external-link"></i></a>
+          <a href="/server/{{ server.uuid_short }}" target="_blank"><i class="fa fa-external-link"></i></a>
         </li>
       </ul>
     </div>

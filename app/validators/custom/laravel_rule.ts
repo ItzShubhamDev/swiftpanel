@@ -3,7 +3,7 @@ import { validationRules } from '#utils/variables'
 import vine from '@vinejs/vine'
 import { FieldContext } from '@vinejs/vine/types'
 
-async function laravelRule(value: unknown, options: any, field: FieldContext) {
+async function laravelRule(value: unknown, _options: any, field: FieldContext) {
   if (typeof value !== 'string') {
     return
   }
@@ -13,7 +13,7 @@ async function laravelRule(value: unknown, options: any, field: FieldContext) {
     if (!validationRules.includes(r) && !r.includes(':')) {
       isValid = false
     } else if (r.includes(':')) {
-      const [rule, params] = r.split(':')
+      const [rule] = r.split(':')
       if (!validationRules.includes(rule)) {
         isValid = false
       }

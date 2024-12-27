@@ -5,6 +5,8 @@ const AdminController = () => import('#controllers/admin/admin_controller')
 
 const SettingsController = () => import('#controllers/admin/settings/settings_controller')
 const MailsController = () => import('#controllers/admin/settings/mail_controller')
+const AdvancedController = () => import('#controllers/admin/settings/advanced_controller')
+
 const ApiController = () => import('#controllers/admin/api_controller')
 
 const DatabasesController = () => import('#controllers/admin/databases_controller')
@@ -30,7 +32,7 @@ router
     router
       .group(() => {
         router.get('mail', [MailsController, 'index']).as('mail')
-        router.get('advanced', [MailsController, 'index']).as('advanced')
+        router.get('advanced', [AdvancedController, 'index']).as('advanced')
       })
       .prefix('settings')
       .as('settings')
@@ -46,7 +48,7 @@ router
     router
       .group(() => {
         router.get('/', [DatabasesController, 'index']).as('index')
-        router.post('/', [DatabasesController, 'store']).as('store')
+        // router.post('/', [DatabasesController, 'store']).as('store')
         router.get(':id', [DatabasesController, 'index']).as('view')
       })
       .prefix('databases')
@@ -80,22 +82,25 @@ router
         router.get('/build', [ServersViewController, 'build']).as('build')
         router.patch('/build', [ServersViewController, 'updateBuild']).as('build.update')
         router.get('/startup', [ServersViewController, 'startup']).as('startup')
+        router.patch('/startup', [ServersViewController, 'updateStartup']).as('startup.update')
         router.get('/database', [ServersViewController, 'database']).as('database')
-        router.get('/mounts', [ServersViewController, 'mounts']).as('mounts')
         router.get('/manage', [ServersViewController, 'manage']).as('manage')
+        router
+          .group(() => {
+            router.post('/reinstall', [ServersViewController, 'manage']).as('reinstall')
+            router.post('/toggle', [ServersViewController, 'manage']).as('toggle')
+            router.post('/suspension', [ServersViewController, 'manage']).as('suspension')
+            router.post('/transfer', [ServersViewController, 'manage']).as('transfer')
+          })
+          .prefix('manage')
+          .as('manage')
         router.get('/delete', [ServersViewController, 'delete']).as('delete')
+        router.delete('/delete', [ServersViewController, 'delete']).as('delete.delete')
       })
       .prefix('servers/:id')
       .as('servers')
-    router
-      .group(() => {
-        router.get('/accounts.json', [UsersController, 'json']).as('json')
-        router.get('/', [UsersController, 'index']).as('index')
-        router.post('/', [UsersController, 'store']).as('new')
-        router.get(':id', [UsersController, 'index']).as('view')
-      })
-      .prefix('users')
-      .as('users')
+    router.resource('users', UsersController).except(['edit'])
+    router.get('/users/accounts.json', [UsersController, 'json']).as('json')
     router.resource('nests', NestsController).except(['edit'])
     router.post('/nests/import', [NestsController, 'importEgg']).as('nests.import')
     router
