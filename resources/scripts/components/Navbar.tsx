@@ -1,5 +1,5 @@
 import { router, usePage } from '@inertiajs/react'
-import { UserIcon, Search, LogOut } from 'lucide-react'
+import { UserRound, Search, LogOut, UserRoundCog } from 'lucide-react'
 import type { User } from '#types/client/user'
 
 export function Navbar() {
@@ -26,14 +26,17 @@ export function Navbar() {
 
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-gray-700 mr-2">
               {user.name_first} {user.name_last}
             </span>
-            <button className="p-1.5 bg-gray-100 rounded-full">
-              <UserIcon className="h-5 w-5 text-gray-600" />
+            <a href="/admin">
+              <UserRoundCog className="h-5 w-5 text-gray-400 hover:text-emerald-400 transition-colors" />
+            </a>
+            <button>
+              <UserRound className="h-5 w-5 text-gray-400 hover:text-emerald-400 transition-colors" />
             </button>
             <button onClick={logout}>
-              <LogOut className="h-5 w-5 text-emerald-400" />
+              <LogOut className="-5 w-5 text-gray-400 hover:text-emerald-400 transition-colors" />
             </button>
           </div>
         </div>
