@@ -14,6 +14,9 @@ export default class AdminMiddleware {
       .reduce((acc, curr) => {
         return { ...acc, ...curr }
       }, {})
+    if (!config['app:name']) {
+      config['app:name'] = 'SwiftPanel'
+    }
     ctx.view.share({
       formatDate,
       config,
