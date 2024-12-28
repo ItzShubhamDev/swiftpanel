@@ -1,7 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import Database from '#models/database'
 import databaseTransformer from '#transformers/api/application/database'
-import { databaseValidator } from '#validators/api/application/server'
+// import { databaseValidator } from '#validators/api/application/server'
 
 export default class DatabasesController {
   async index({ params }: HttpContext) {

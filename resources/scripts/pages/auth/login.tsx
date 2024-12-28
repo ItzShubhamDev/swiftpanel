@@ -11,6 +11,7 @@ export default function Page() {
 
     try {
       router.post('/auth/login', values)
+      toast.success('Logged in successfully')
     } catch (error) {
       toast.error('Failed to login')
     }
@@ -43,7 +44,7 @@ export default function Page() {
                 Email
               </label>
               <div className="relative">
-                <LucideMail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                <LucideMail className="absolute left-3 top-2 h-5 w-5 text-gray-400" />
                 <input
                   type="email"
                   className="flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-10 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500"
@@ -63,7 +64,7 @@ export default function Page() {
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                <Lock className="absolute left-3 top-2 h-5 w-5 text-gray-400" />
                 <input
                   type="password"
                   className="flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-10 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500"

@@ -68,14 +68,11 @@ export default class PUser extends BaseCommand {
         password,
         rootAdmin: admin,
       })
+      this.logger.success('User created successfully')
     } catch (error) {
       this.logger.error('Failed to create user')
       this.logger.error(error)
       return
     }
-  }
-
-  async completed() {
-    this.logger.success('User created successfully')
   }
 }
