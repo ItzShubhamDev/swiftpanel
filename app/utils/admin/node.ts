@@ -28,7 +28,7 @@ export async function getUsage(node: Node) {
   return Object.keys(extras).reduce((acc: Record<string, any>, k) => {
     const key = k.replace('sum_', '')
     const value = Number.parseInt(extras[k]) || 0
-    const max = stats[key] * (1 + stats[key + 'Overallocate'] / 100)
+    const max = stats[key] * (1 + stats[key + '_overallocate'] / 100)
     acc[key] = {
       value: value,
       max: max,
