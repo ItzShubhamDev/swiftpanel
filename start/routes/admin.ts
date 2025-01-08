@@ -99,8 +99,8 @@ router
       })
       .prefix('servers/:id')
       .as('servers')
-    router.resource('users', UsersController).except(['edit'])
     router.get('/users/accounts.json', [UsersController, 'json']).as('json')
+    router.resource('users', UsersController).except(['edit'])
     router.resource('nests', NestsController).except(['edit'])
     router.post('/nests/import', [NestsController, 'importEgg']).as('nests.import')
     router

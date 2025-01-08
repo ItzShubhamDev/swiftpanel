@@ -9,6 +9,13 @@ export async function serverResources(server: Server): Promise<WingsServer> {
   return data
 }
 
+export async function createServer(server: Server, start: boolean = true): Promise<void> {
+  await handle(server, '/api/servers', 'POST', {
+    uuid: server.uuid,
+    start_on_completion: start,
+  })
+}
+
 export async function deleteServer(server: Server): Promise<void> {
   await handle(server, `/api/servers/${server.uuid}`, 'DELETE')
 }

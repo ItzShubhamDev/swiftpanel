@@ -7,6 +7,7 @@ import { createServerValidator } from '#validators/admin/servers'
 import { HttpContext } from '@adonisjs/core/http'
 import serverNotices from '#langs/en/admin/server'
 import EggVariable from '#models/egg_variable'
+import { createServer } from '#utils/wings/servers/server'
 
 export default class ServersController {
   async index({ view }: HttpContext) {
@@ -86,6 +87,13 @@ export default class ServersController {
     await server.related('serverVariables').createMany(variables)
 
     notify(session, serverNotices.alerts.server_created)
+
+    try {
+      await createServer(server, payload.start_on_completion!)
+    } catch (error) {
+      console.error(error)
+    }
+
     return response.redirect().toRoute('admin.servers.show', { id: server.id })
   }
 

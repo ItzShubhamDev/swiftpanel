@@ -4,6 +4,7 @@ import Server from '#models/server'
 import { getVariables } from '#utils/api/application/servers'
 import serverTransformer from '#transformers/api/application/server'
 import { serverValidator, variableValidator } from '#validators/api/application/server'
+import { createServer } from '#utils/wings/servers/server'
 
 export default class ServersController {
   async index({ request }: HttpContext) {
@@ -75,10 +76,16 @@ export default class ServersController {
       })
     )
 
+    try {
+      await createServer(server)
+    } catch (error) {
+      console.error(error)
+    }
+
     return serverTransformer(server)
   }
 
-  async update({}: HttpContext) {}
+  async update({ }: HttpContext) { }
 
-  async destroy({}: HttpContext) {}
+  async destroy({ }: HttpContext) { }
 }

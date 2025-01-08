@@ -15,11 +15,16 @@ import { DateTime } from 'luxon'
 type Data = ReturnType<typeof serverTransformer>
 
 export default class ServerController {
-  async index(params: HttpContext) {
-    const page = params.request.input('page', 1) < 1 ? 1 : params.request.input('page', 1)
-    const perPage = params.request.input('per_page', 50)
+  async index({ request, response, node }: HttpContext) {
+    const page = request.input('page', 1) < 1 ? 1 : request.input('page', 1)
+    const perPage = request.input('per_page', 50)
+
+    if (!node) {
+      return response.forbidden('Unauthorized')
+    }
 
     const servers = await Server.query()
+      .where('nodeId', node.id)
       .preload('node', (n) => n.preload('location'))
       .preload('allocations')
       .preload('egg')
@@ -40,13 +45,13 @@ export default class ServerController {
       data.push(transformed)
     })
 
-    const response = {
+    const res = {
       data,
       links: pagination.links,
       meta: pagination.meta,
     }
 
-    return response
+    return res
   }
 
   async show({ params }: HttpContext) {
@@ -95,9 +100,12 @@ export default class ServerController {
   }
 
   async reset({ response, node }: HttpContext) {
+    if (!node) {
+      return response.forbidden('Unauthorized')
+    }
     await Server.query()
       .whereIn('status', [STATUS_INSTALLING, STATUS_RESTORING_BACKUP])
-      .andWhere('nodeId', node!.id)
+      .andWhere('nodeId', node.id)
       .update({ status: null })
 
     return response.noContent()
