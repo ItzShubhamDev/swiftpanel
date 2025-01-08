@@ -30,18 +30,18 @@ For the Client side despite the struggles I made own pages.
 
 ## Note
 This project is not at all related with [Pterodactyl Panel](https://github.com/pterodactyl/panel), do not ask them anything about it<br/>
-Running on your own hardware - **This version is not ready for production yet**, the connection between SwiftPanel and Pterodactyl Wings currently require some special configurations which I will be fixing after my exams. Have patience :v: 
+Running on your own hardware - **This version is not ready for production yet**, can be used for development, but there are some bugs.
 
 ## Previews
-![Login Page](https://github.com/ItzShubhamDev/swift-panel/blob/main/images/image-01.png?raw=true)
-![Home Page](https://github.com/ItzShubhamDev/swift-panel/blob/main/images/image-02.png?raw=true)
-![Server Console Page](https://github.com/ItzShubhamDev/swift-panel/blob/main/images/image-03.png?raw=true)
-![Server Files Page](https://github.com/ItzShubhamDev/swift-panel/blob/main/images/image-04.png?raw=true)
-![Server Startup Page](https://github.com/ItzShubhamDev/swift-panel/blob/main/images/image-05.png?raw=true)
-![Server Settings Page](https://github.com/ItzShubhamDev/swift-panel/blob/main/images/image-06.png?raw=true)
-![Admin Overview Page](https://github.com/ItzShubhamDev/swift-panel/blob/main/images/image-07.png?raw=true)
-![Admin Settings Page](https://github.com/ItzShubhamDev/swift-panel/blob/main/images/image-08.png?raw=true)
-![Admin API Page](https://github.com/ItzShubhamDev/swift-panel/blob/main/images/image-09.png?raw=true)
-![Admin Locations Page](https://github.com/ItzShubhamDev/swift-panel/blob/main/images/image-10.png?raw=true)
-![Admin Nodes Page](https://github.com/ItzShubhamDev/swift-panel/blob/main/images/image-11.png?raw=true)
-![Admin Servers Page](https://github.com/ItzShubhamDev/swift-panel/blob/main/images/image-12.png?raw=true)
+![Login Page](https://github.com/ItzShubhamDev/swiftpanel/blob/main/images/image-01.png?raw=true)
+![Home Page](https://github.com/ItzShubhamDev/swiftpanel/blob/main/images/image-02.png?raw=true)
+![Server Console Page](https://github.com/ItzShubhamDev/swiftpanel/blob/main/images/image-03.png?raw=true)
+![Server Files Page](https://github.com/ItzShubhamDev/swiftpanel/blob/main/images/image-04.png?raw=true)
+![Server Startup Page](https://github.com/ItzShubhamDev/swiftpanel/blob/main/images/image-05.png?raw=true)
+![Server Settings Page](https://github.com/ItzShubhamDev/swiftpanel/blob/main/images/image-06.png?raw=true)
+![Admin Overview Page](https://github.com/ItzShubhamDev/swiftpanel/blob/main/images/image-07.png?raw=true)
+![Admin Settings Page](https://github.com/ItzShubhamDev/swiftpanel/blob/main/images/image-08.png?raw=true)
+![Admin API Page](https://github.com/ItzShubhamDev/swiftpanel/blob/main/images/image-09.png?raw=true)
+![Admin Locations Page](https://github.com/ItzShubhamDev/swiftpanel/blob/main/images/image-10.png?raw=true)
+![Admin Nodes Page](https://github.com/ItzShubhamDev/swiftpanel/blob/main/images/image-11.png?raw=true)
+![Admin Servers Page](https://github.com/ItzShubhamDev/swiftpanel/blob/main/images/image-12.png?raw=true)
