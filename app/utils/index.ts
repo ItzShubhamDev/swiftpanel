@@ -1,4 +1,4 @@
-import { appKey } from '#config/app'
+import { appKey, appUrl } from '#config/app'
 import crypto from 'node:crypto'
 import string from '@adonisjs/core/helpers/string'
 
@@ -31,6 +31,7 @@ export function pagination(
   lastPage: number,
   path: string
 ) {
+  path = appUrl + path
   return {
     total,
     count: count(total, perPage, currentPage, lastPage),
@@ -39,7 +40,7 @@ export function pagination(
     total_pages: lastPage,
     links: {
       first: `${path}?page=1`,
-      previous: currentPage > 1 ? `${path}?page=${currentPage - 1}` : null,
+      prev: currentPage > 1 ? `${path}?page=${currentPage - 1}` : null,
       next: currentPage < lastPage ? `${path}?page=${currentPage + 1}` : null,
       last: `${path}?page=${lastPage}`,
     },

@@ -1,3 +1,4 @@
+import { appUrl } from '#config/app'
 import Server from '#models/server'
 import { pagination } from '#utils/index'
 
@@ -29,7 +30,7 @@ export function parseConfig(server: Server, config: Record<string, any>) {
       if (typeof value === 'string') {
         newConfig['replace'].push({
           match: replaceKey,
-          replace: getNestedValue(legacyServer, value),
+          replace_with: getNestedValue(legacyServer, value),
         })
       } else {
         Object.keys(value).map((replaceValue) => {
@@ -98,6 +99,7 @@ export function wingsPagination(
   path: string
 ) {
   const data = pagination(total, perPage, currentPage, lastPage, path)
+  path = appUrl + path
   const links = [
     {
       url: currentPage === 1 ? null : `${path}?page=${currentPage - 1}`,

@@ -54,6 +54,7 @@ export default function serverTransformer(server: Server) {
       },
       container: {
         image: server.image,
+        oom_disabled: server.oomDisabled,
         requires_rebuild: false,
       },
       allocations: {
@@ -67,17 +68,17 @@ export default function serverTransformer(server: Server) {
       mounts: [],
       egg: {
         id: server.egg.uuid,
-        file_denylist: server.egg.fileDenylist,
+        file_denylist: JSON.parse(server.egg.fileDenylist || '[]'),
       },
     },
     process_configuration: {
       startup: {
-        done: JSON.parse(server.egg.configStartup!).done,
+        done: [JSON.parse(server.egg.configStartup!).done],
         user_interaction: [],
         strip_ansi: false,
       },
       stop: convertStopToNewFormat(server.egg.configStop!),
-      configs: parseConfig(server, JSON.parse(server.egg.configFiles!)),
+      configs: [parseConfig(server, JSON.parse(server.egg.configFiles!))],
     },
   }
 }
