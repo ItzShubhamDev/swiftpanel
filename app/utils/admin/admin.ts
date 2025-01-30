@@ -14,7 +14,7 @@ export function notify(session: Session, message: string) {
 }
 
 export async function getLatestVersion() {
-  const res = await fetch('https://api.github.com/repos/itzshubhamdev/swift-panel/releases/latest')
+  const res = await fetch('https://api.github.com/repos/itzshubhamdev/swiftpanel/releases/latest')
   if (!res.ok) {
     return 'Unknown'
   }
