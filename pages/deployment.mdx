@@ -1,0 +1,9 @@
+## Deployment
+
+After configuring webserver, we will use pm2 to run our application in the background.
+
+```bash
+npm install -g pm2
+cd /var/www/panel
+pm2 start bin/server.js --name=panel
+```

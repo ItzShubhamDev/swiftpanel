@@ -1,0 +1,15 @@
+## Dependencies
+
+-   Node.JS `20` and higher
+-   Mysql `8` and higher **or** MariaDB `10.2` and higher
+-   Nginx
+-   `curl`, `unzip`, `git`
+
+## Dependecies Installation
+
+```bash
+curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash
+apt update
+apt -y install mariadb-server nginx nodejs unzip git
+```

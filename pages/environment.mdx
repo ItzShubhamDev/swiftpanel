@@ -1,0 +1,41 @@
+## Environment Variables
+
+```bash
+cp .env.example .env
+```
+
+### Variables
+
+`TZ` - Timezone
+
+`PORT` - Port for the panel
+
+`HOST` - Host for the panel
+
+`LOG_LEVEL` - Log level for the panel
+
+`APP_KEY` - App key for the panel (generate using `openssl rand -base64 24` or `https://generate-secret.vercel.app/32`)
+
+`NODE_ENV` - Node environment
+
+`SESSION_DRIVER` - Session
+
+`DB_HOST` - Database host
+
+`DB_PORT` - Database port
+
+`DB_USER` - Database user
+
+`DB_PASSWORD` - Database password
+
+`DB_DATABASE` - Database name
+
+`APP_URL` - URL for the panel
+
+### Node Dependecies
+
+Install the node dependencies
+
+```bash
+npm install --prod
+```

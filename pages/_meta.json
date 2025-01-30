@@ -1,0 +1,15 @@
+{
+    "index": "Introduction",
+    "dependencies": "Dependencies",
+    "installation": "Installation",
+    "database": "Database",
+    "environment": "Environment",
+    "webserver": "Web Server",
+    "deployment": "Deployment",
+    "demo": {
+        "title": "Demo ↗",
+        "type": "page",
+        "href": "https://swiftpanel.itzshubhamdev.com",
+        "newWindow": true
+    }
+}

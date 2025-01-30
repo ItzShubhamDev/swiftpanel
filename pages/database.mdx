@@ -1,0 +1,19 @@
+## Database Configuration
+
+We will need a database setup and a user with the necessary permissions to run the application. 
+
+```bash
+# If using mariadb
+mariadb -u root -p
+
+# If using mysql
+mysql -u root -p
+```
+
+```sql
+# Remember to replace 'password' with a secure password
+CREATE USER 'app'@'127.0.0.1' IDENTIFIED BY 'password';
+CREATE DATABASE app;
+GRANT ALL PRIVILEGES ON app.* TO 'app'@'127.0.0.1' WITH GRANT OPTION;
+exit;
+```
