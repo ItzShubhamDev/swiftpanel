@@ -15,7 +15,7 @@ export default function StatCard({
 }) {
   const percentage = (usage * 100) / total
   return (
-    <div className="bg-gray-100 border border-gray-200 rounded-lg p-4 flex items-center gap-4 h-24">
+    <div className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-4 flex items-center gap-4 h-24">
       <div className="py-2">{icon}</div>
       <div className="w-full h-full flex flex-col justify-center space-y-2 py-1.5">
         <h3 className="text-gray-400 text-lg flex w-full justify-between items-center">

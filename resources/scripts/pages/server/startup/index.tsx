@@ -79,10 +79,10 @@ export default function Page({ params }: { params: { id: string } }) {
         <title>Startup</title>
       </Head>
       <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="p-4 border-b border-gray-200">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm">
+          <div className="p-4 border-b border-gray-200 dark:border-gray-600">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                 <Play className="h-5 w-5 text-emerald-500" />
                 Startup
               </h2>
@@ -113,7 +113,7 @@ export default function Page({ params }: { params: { id: string } }) {
           </div>
 
           <div className="flex flex-col p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Variables</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Variables</h3>
             {startup && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {startup.data.map((variable, i) => (

@@ -1,29 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Input from '~/components/elements/Input'
 import Modal from '~/components/elements/Modal'
 
-export default function RenameModal({
+export default function NewDirectoryModal({
   open,
   onClose,
-  onRename,
-  name,
-  type,
+  onCreate,
 }: {
   open: boolean
   onClose: () => void
-  onRename: (name: string) => void
-  name: string
-  type?: 'file' | 'folder'
+  onCreate: (name: string) => void
 }) {
-  const [newName, setNewName] = useState(name)
-
-  useEffect(() => {
-    setNewName(name)
-  }, [name])
-
+  const [name, setName] = useState('')
   return (
-    <Modal isOpen={open} onClose={onClose} title={`Rename ${type == 'file' ? 'File' : 'Folder'}`}>
-      <Input value={newName} onChange={setNewName} title="New Name" />
+    <Modal isOpen={open} onClose={onClose} title={`New Directory`}>
+      <Input value={name} onChange={setName} title="Name" />
       <div className="flex justify-end mt-4 space-x-2">
         <button
           onClick={onClose}
@@ -32,10 +23,10 @@ export default function RenameModal({
           Cancel
         </button>
         <button
-          onClick={() => onRename(newName)}
+          onClick={() => onCreate(name)}
           className="px-4 py-2 text-white bg-emerald-500 rounded-md"
         >
-          Rename
+          Create
         </button>
       </div>
     </Modal>

@@ -54,10 +54,10 @@ export default function Page({ params }: { params: { id: string } }) {
         <title>Settings</title>
       </Head>
       <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="p-4 border-b border-gray-200">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm">
+          <div className="p-4 border-b border-gray-200 dark:border-gray-600">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-200 flex items-center gap-2">
                 <Settings className="h-5 w-5 text-emerald-500" />
                 Settings
               </h2>
@@ -67,7 +67,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
           <div className="flex w-full">
             <div className="flex flex-col w-1/2 p-6 space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900">Server Details</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-200">Server Details</h3>
               <Input
                 title="Server Name"
                 value={settings?.name}
@@ -82,7 +82,7 @@ export default function Page({ params }: { params: { id: string } }) {
               />
             </div>
             <div className="flex flex-col w-1/2 p-6 space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900">Debug Info</h3>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-200">Debug Info</h3>
               <Input
                 title="Node"
                 value={server?.attributes.node!}

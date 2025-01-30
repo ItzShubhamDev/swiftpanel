@@ -93,5 +93,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({ mime, value, onChange })
     }
   }, [mime])
 
-  return <div ref={editorRef} className="border border-gray-300 rounded-lg hover:cursor-text" />
+  return (
+    <div
+      ref={editorRef}
+      className="border border-gray-300 dark:border-gray-600 rounded-lg hover:cursor-text"
+    />
+  )
 }

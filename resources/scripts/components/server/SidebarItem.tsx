@@ -1,4 +1,4 @@
-import { usePage } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 
 export default function Item({
   href,
@@ -13,12 +13,12 @@ export default function Item({
 }) {
   const { route } = usePage().props as unknown as { route: string }
   return (
-    <a
+    <Link
       href={href}
       className={`flex items-center gap-2 px-4 py-2  hover:bg-gray-600 transition-colors ${routeName && route.includes(routeName) ? 'bg-gray-700 text-emerald-400' : 'text-gray-300'}`}
     >
       {icon}
       <span>{name}</span>
-    </a>
+    </Link>
   )
 }

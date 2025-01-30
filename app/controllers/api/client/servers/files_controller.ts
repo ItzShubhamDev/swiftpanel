@@ -43,7 +43,8 @@ export default class FilesController {
       .orWhere('uuidShort', params.server_id)
       .firstOrFail()
     await createDirectory(server, name, path)
-    return response.noContent()
+    const files = await directory(server, path)
+    return response.json(files)
   }
 
   async destroy({ params, response, request }: HttpContext) {

@@ -132,24 +132,24 @@ export default function Page({ server }: { server: Server }) {
         <title>Console</title>
       </Head>
       <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="p-4 border-b border-gray-200">
+        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-sm">
+          <div className="p-4 border-b border-gray-200 dark:border-gray-600">
             <div className="flex justify-between items-center">
-              <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center gap-2">
                 <TerminalIcon className="h-5 w-5 text-emerald-500" />
                 Console
               </h2>
               <div className="flex gap-2">
                 {serverState === 'offline' ? (
                   <button
-                    className="p-2 text-green-600 hover:bg-green-50 rounded-lg"
+                    className="p-2 text-green-600 hover:bg-green-50 dark:hover:bg-gray-700 rounded-lg"
                     onClick={() => sendState('start')}
                   >
                     <Play className="h-5 w-5" />
                   </button>
                 ) : (
                   <button
-                    className="p-2 text-yellow-500 hover:bg-yellow-50 rounded-lg disabled:opacity-50"
+                    className="p-2 text-yellow-500 hover:bg-yellow-50 dark:hover:bg-gray-700 rounded-lg disabled:opacity-50"
                     disabled={serverState == 'starting' || serverState == 'stopping'}
                     onClick={() => sendState('stop')}
                   >
@@ -157,14 +157,14 @@ export default function Page({ server }: { server: Server }) {
                   </button>
                 )}
                 <button
-                  className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg disabled:opacity-50"
+                  className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-gray-700 rounded-lg disabled:opacity-50"
                   disabled={serverState == 'starting' || serverState == 'stopping'}
                   onClick={() => sendState('restart')}
                 >
                   <RotateCcw className="h-5 w-5" />
                 </button>
                 <button
-                  className="p-2 text-red-600 hover:bg-red-50 rounded-lg"
+                  className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-gray-700 rounded-lg"
                   onClick={() => sendState('kill')}
                 >
                   <PowerOff className="h-5 w-5" />
@@ -193,7 +193,7 @@ export default function Page({ server }: { server: Server }) {
                 usage={stats.disk}
                 total={server.disk}
               />
-              <div className="bg-gray-100 border border-gray-200 rounded-lg p-4 flex items-center gap-4 h-24">
+              <div className="bg-gray-100 border border-gray-200 dark:bg-gray-800 dark:border-gray-600 rounded-lg p-4 flex items-center gap-4 h-24">
                 <div className="py-2">
                   <Clock size={40} className="text-gray-500" />
                 </div>
@@ -204,7 +204,7 @@ export default function Page({ server }: { server: Server }) {
                   </h3>
                 </div>
               </div>
-              <div className="bg-gray-100 border border-gray-200 rounded-lg p-4 flex items-center gap-4 h-24">
+              <div className="bg-gray-100 border border-gray-200 dark:bg-gray-800 dark:border-gray-600 rounded-lg p-4 flex items-center gap-4 h-24">
                 <div className="py-2">
                   <ArrowDownUp size={40} className="text-green-600" />
                 </div>

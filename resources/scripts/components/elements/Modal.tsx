@@ -17,8 +17,8 @@ export default function Modal({ isOpen, onClose, title, children }: ModalProps) 
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
       {/* Modal */}
-      <div className="relative z-50 w-full max-w-md bg-white rounded-lg shadow-xl">
-        <div className="flex items-center justify-between p-4 border-b">
+      <div className="relative z-50 w-full max-w-md bg-white dark:bg-gray-800 rounded-lg shadow-xl">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-600">
           <h2 className="text-lg font-semibold">{title}</h2>
           <button
             onClick={onClose}

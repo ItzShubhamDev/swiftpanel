@@ -6,6 +6,7 @@ import { createRoot } from 'react-dom/client'
 import { createInertiaApp } from '@inertiajs/react'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
 import Layout from './layout.js'
+import ThemeLayout from './themeLayout'
 
 const appName = import.meta.env.VITE_APP_NAME || 'SwiftPanel'
 
@@ -21,7 +22,15 @@ createInertiaApp({
     )) as any
     if (!name.startsWith('auth/') && !name.startsWith('/')) {
       currentPage.default.layout =
-        currentPage.default.layout || ((page: React.ReactNode) => <Layout children={page} />)
+        currentPage.default.layout ||
+        ((page: React.ReactNode) => (
+          <ThemeLayout>
+            <Layout children={page} />
+          </ThemeLayout>
+        ))
+    } else if (name.startsWith('auth/')) {
+      currentPage.default.layout =
+        currentPage.default.layout || ((page: React.ReactNode) => <ThemeLayout children={page} />)
     }
     return currentPage
   },

@@ -10,8 +10,8 @@ import {
   Calendar,
   Eye,
 } from 'lucide-react'
-import Item from './SidebarItem.js'
-import { usePage } from '@inertiajs/react'
+import Item from './SidebarItem'
+import { Link, usePage } from '@inertiajs/react'
 
 export function Sidebar() {
   const { params } = usePage().props as unknown as { params: { id: string } }
@@ -19,10 +19,10 @@ export function Sidebar() {
   return (
     <aside className="w-64 bg-gray-900 text-white">
       <div className="p-4">
-        <a href="/" className="text-2xl font-bold flex items-center gap-2">
+        <Link href="/" className="text-2xl font-bold flex items-center gap-2">
           <Terminal className="h-8 w-8 text-emerald-400" />
           <span>Swift Panel</span>
-        </a>
+        </Link>
       </div>
 
       <nav className="mt-8">

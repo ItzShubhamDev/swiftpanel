@@ -51,7 +51,7 @@ export default function Page() {
       <Head>
         <title>Edit File</title>
       </Head>
-      <div className="bg-white rounded-lg shadow-lg p-6">
+      <div className="bg-white dark:bg-gray-900 rounded-lg shadow-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <Select value={mime} onChange={(v) => setMime(v)}>
             {modes.map((mode, i) => (

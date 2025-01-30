@@ -8,9 +8,12 @@ export default class AuthController {
 
   async store({ request, auth, response }: HttpContext) {
     const { email, password } = request.only(['email', 'password'])
-    const user = await User.verifyCredentials(email, password)
-
-    await auth.use('web').login(user)
+    try {
+      const user = await User.verifyCredentials(email, password)
+      await auth.use('web').login(user)
+    } catch {
+      return response.status(401).json({ message: 'Invalid credentials' })
+    }
 
     return response.redirect().toRoute('index')
   }
