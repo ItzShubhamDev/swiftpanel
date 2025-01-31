@@ -1,6 +1,10 @@
 # Swift Panel
 A Pterodactyl Panel Clone using Javascript
 
+## Documentation
+
+You can check the docs at [itzshubhamdev.github.io/swiftpanel](https://itzshubhamdev.github.io/swiftpanel)
+
 ## Why????
 I was very much interested in making [Pterodactyl Panel](https://github.com/pterodactyl/panel) addons, but I lacked the knowledge of **PHP**, I once thought of learning it but couldn't make up my mind. So instead I rewritted it in Js (One of the Most Used Languages).
 
